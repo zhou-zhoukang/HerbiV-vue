@@ -20,9 +20,9 @@
 <script setup>
 import {onMounted, reactive, ref} from "vue";
 import SearchService from "@/service/search";
-import TCMs from "@/components/table/TCMDetailTable.vue";
+import TCMs from "@/components/table/TCMTable.vue";
 import router from "@/router";
-import Proteins from "@/components/table/ProteinsDetailTable.vue";
+import Proteins from "@/components/table/ProteinsTable.vue";
 import ChemicalProteinLink from "@/components/table/ChemicalProteinLink.vue";
 import Graph from "@/service/graph";
 const type=ref(router.currentRoute.value.query.type)

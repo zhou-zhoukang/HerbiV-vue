@@ -1,7 +1,7 @@
 <script setup>
 import {onMounted, reactive} from "vue";
-import ChemicalsService from "@/service/ChemicalsService";
-import ChemicalsTable from "@/components/table/ChemicalsTable.vue";
+import TCMService from "@/service/TCMService";
+import TCMTable from "@/components/table/TCMTable.vue";
 
 const state = reactive({
   data: [],
@@ -11,7 +11,7 @@ const state = reactive({
 });
 
 const getAll = async () => {
-  await ChemicalsService.getAll(state.page, state.size).then(res => {
+  await TCMService.getAll(state.page, state.size).then(res => {
     state.data = res.content;
     state.total = res.totalElements;
   }).catch(err => {
@@ -39,23 +39,21 @@ const handleSizeChange = (size) => {
 </script>
 
 <template>
-  <div>
-    <ChemicalsTable :chemicals-data="state.data"/>
-    <div style="margin: 10px">
-      <el-pagination
-        background
-        layout="prev, pager, next ,total, sizes"
-        :page-sizes="[10, 20, 30, 40]"
-        :total="state.total"
-        @current-change="handleCurrentChange"
-        @size-change="handleSizeChange"
-      />
-    </div>
+  <TCMTable :tcm-data="state.data"/>
+  <div style="margin: 10px">
+    <el-pagination
+      background
+      layout="prev, pager, next ,total, sizes"
+      :page-sizes="[10, 20, 30, 40]"
+      :total="state.total"
+      @current-change="handleCurrentChange"
+      @size-change="handleSizeChange"
+    />
   </div>
 </template>
 
 <script>
 export default {
-  name: "ChemicalsTableView",
+  name: "TCMTableView"
 }
 </script>
