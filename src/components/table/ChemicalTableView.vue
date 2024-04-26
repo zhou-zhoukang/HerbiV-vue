@@ -1,32 +1,35 @@
 <script setup>
 import {onMounted, reactive} from "vue";
-import ChemicalService from "@/service/ChemicalService";
 import ChemicalTable from "@/components/table/ChemicalTable.vue";
+import BaseService from "@/service/BaseService";
 
 const state = reactive({
   data: [],
   page: 1,
   size: 10,
   total: 0,
+  searchType: '',
+  searchContent: ''
 });
 
-const getAll = async () => {
-  await ChemicalService.getAll(state.page, state.size).then(res => {
-    state.data = res.content;
-    state.total = res.totalElements;
-  }).catch(err => {
-    console.log(err);
-  });
+const list = async () => {
+  await BaseService.chemicalList(state.searchType, state.searchContent, state.page, state.size)
+    .then(res => {
+      state.data = res.content;
+      state.total = res.totalElements;
+    }).catch(err => {
+      console.log(err);
+    })
 }
 
-onMounted(getAll);
+onMounted(list);
 
 /** 页码变动事件
  * @param page
  * */
 const handleCurrentChange = (page) => {
   state.page = page;
-  getAll()
+  list()
 }
 
 /** 每页展示条数变动事件
@@ -34,8 +37,19 @@ const handleCurrentChange = (page) => {
  * */
 const handleSizeChange = (size) => {
   state.size = size;
-  getAll()
+  list()
 };
+
+const startSearch = (type, content) => {
+  state.searchType = type;
+  state.searchContent = content;
+  list();
+}
+
+// https://blog.csdn.net/luozaiyong/article/details/130101302
+defineExpose({
+  startSearch
+})
 </script>
 
 <template>

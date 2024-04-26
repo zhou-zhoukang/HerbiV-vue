@@ -1,6 +1,6 @@
 <script setup>
 import {onMounted, reactive} from "vue";
-import TCMService from "@/service/TCMService";
+import BaseService from "@/service/BaseService";
 import TCMTable from "@/components/table/TCMTable.vue";
 
 const state = reactive({
@@ -12,35 +12,24 @@ const state = reactive({
   searchContent: ''
 });
 
-const getAllBy = async () => {
-  if (state.searchType === "") {
-    await TCMService.getAll(state.page, state.size)
-      .then(res => {
-        state.data = res.content;
-        state.total = res.totalElements;
-      }).catch(err => {
-        console.log(err);
-      });
-  } else {
-    await TCMService.getAllBy(state.searchType, state.searchContent, state.page, state.size)
-      .then(res => {
-        state.data = res.content;
-        state.total = res.totalElements;
-      }).catch(err => {
-        console.log(err);
-      })
-  }
-
+const list = async () => {
+  await BaseService.tcmList(state.searchType, state.searchContent, state.page, state.size)
+    .then(res => {
+      state.data = res.content;
+      state.total = res.totalElements;
+    }).catch(err => {
+      console.log(err);
+    })
 }
 
-onMounted(getAllBy);
+onMounted(list);
 
 /** 页码变动事件
  * @param page
  * */
 const handleCurrentChange = (page) => {
   state.page = page;
-  getAllBy();
+  list();
 }
 
 /** 每页展示条数变动事件
@@ -48,13 +37,13 @@ const handleCurrentChange = (page) => {
  * */
 const handleSizeChange = (size) => {
   state.size = size;
-  getAllBy();
+  list();
 };
 
 const startSearch = (type, content) => {
   state.searchType = type;
   state.searchContent = content;
-  getAllBy();
+  list();
 }
 
 // https://blog.csdn.net/luozaiyong/article/details/130101302

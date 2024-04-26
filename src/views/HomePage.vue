@@ -4,8 +4,6 @@ import {Search} from "@element-plus/icons-vue";
 import TCMTableView from "@/components/table/TCMTableView.vue";
 import ChemicalTableView from "@/components/table/ChemicalTableView.vue";
 import ProteinTableView from "@/components/table/ProteinTableView.vue";
-
-
 </script>
 
 <template>
@@ -30,7 +28,7 @@ import ProteinTableView from "@/components/table/ProteinTableView.vue";
       size="large"
       placeholder="选择"
       v-model="searchItem.type2"
-      style="width: 100px; margin-left: 10px"
+      style="width: 120px; margin-left: 10px"
     >
       <el-option
         v-for="option in searchOptions.find(item => item.value === searchItem.type).searchOptions"
@@ -53,8 +51,8 @@ import ProteinTableView from "@/components/table/ProteinTableView.vue";
   </div>
 
   <TCMTableView ref="TCMTable" v-if="searchItem.type === 'tcm'"/>
-  <ChemicalTableView v-if="searchItem.type==='chemicals'"/>
-  <ProteinTableView v-if="searchItem.type==='proteins'"/>
+  <ChemicalTableView ref="ChemicalTable" v-if="searchItem.type==='chemical'"/>
+  <ProteinTableView ref="ProteinTable" v-if="searchItem.type==='protein'"/>
 </template>
 
 <script>
@@ -88,7 +86,7 @@ const searchOptions = [
   },
   {
     label: "成分",
-    value: "chemicals",
+    value: "chemical",
     searchOptions: [
       {
         label: "ID",
@@ -102,11 +100,19 @@ const searchOptions = [
   },
   {
     label: "靶点",
-    value: "proteins",
+    value: "protein",
     searchOptions: [
       {
         label: "ID",
         value: "id"
+      },
+      {
+        label: "靶点名称",
+        value: "proteinName"
+      },
+      {
+        label: "基因名称",
+        value: "geneName"
       }
     ]
   }
@@ -125,7 +131,13 @@ export default {
   },
   methods: {
     search() {
-      this.$refs.TCMTable.startSearch(searchItem.value.type2, searchItem.value.content)
+      if (searchItem.value.type === 'tcm') {
+        this.$refs.TCMTable.startSearch(searchItem.value.type2, searchItem.value.content)
+      } else if (searchItem.value.type === 'chemical') {
+        this.$refs.ChemicalTable.startSearch(searchItem.value.type2, searchItem.value.content)
+      } else if (searchItem.value.type === "protein") {
+        this.$refs.ProteinTable.startSearch(searchItem.value.type2, searchItem.value.content)
+      }
     }
   }
 }
