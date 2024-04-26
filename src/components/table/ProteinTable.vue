@@ -1,6 +1,6 @@
 <script setup>
 defineProps({
-  tcmData: {
+  proteinData: {
     type: Array,
     required: true
   }
@@ -9,7 +9,7 @@ defineProps({
 
 <template>
 <div>
-  <el-table :data="tcmData" style="width: 100%">
+  <el-table :data="proteinData" style="width: 100%">
     <el-table-column fixed prop="id" label="Ensembl ID" width="200"/>
     <el-table-column prop="proteinName" label="Protein Name" width="1000"/>
     <el-table-column prop="geneName" label="Gene Name"/>

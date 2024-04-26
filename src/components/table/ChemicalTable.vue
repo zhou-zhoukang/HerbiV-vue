@@ -1,6 +1,6 @@
 <script setup>
 defineProps({
-	chemicalsData: {
+	chemicalData: {
 		type: Array,
 		required: true
 	}
@@ -9,7 +9,7 @@ defineProps({
 
 <template>
 	<div>
-		<el-table :data="chemicalsData"
+		<el-table :data="chemicalData"
 							stripe border fit style="width: 100%"
 							max-height="1000"
 							highlight-current-row

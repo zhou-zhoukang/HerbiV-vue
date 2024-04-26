@@ -54,7 +54,7 @@ defineExpose({
 
 <template>
   <div>
-    <ChemicalTable :chemicals-data="state.data"/>
+    <ChemicalTable :chemical-data="state.data"/>
     <div style="margin: 10px">
       <el-pagination
         background

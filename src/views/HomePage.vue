@@ -4,6 +4,7 @@ import {Search} from "@element-plus/icons-vue";
 import TCMTableView from "@/components/table/TCMTableView.vue";
 import ChemicalTableView from "@/components/table/ChemicalTableView.vue";
 import ProteinTableView from "@/components/table/ProteinTableView.vue";
+import FormulaTableView from "@/components/table/FormulaTableView.vue";
 </script>
 
 <template>
@@ -51,8 +52,9 @@ import ProteinTableView from "@/components/table/ProteinTableView.vue";
   </div>
 
   <TCMTableView ref="TCMTable" v-if="searchItem.type === 'tcm'"/>
-  <ChemicalTableView ref="ChemicalTable" v-if="searchItem.type==='chemical'"/>
-  <ProteinTableView ref="ProteinTable" v-if="searchItem.type==='protein'"/>
+  <ChemicalTableView ref="ChemicalTable" v-if="searchItem.type === 'chemical'"/>
+  <ProteinTableView ref="ProteinTable" v-if="searchItem.type === 'protein'"/>
+  <FormulaTableView ref="FormulaTable" v-if="searchItem.type === 'formula'"/>
 </template>
 
 <script>
@@ -115,6 +117,32 @@ const searchOptions = [
         value: "geneName"
       }
     ]
+  },
+  {
+    label: "复方",
+    value: "formula",
+    searchOptions: [
+      {
+        label: "ID",
+        value: "id"
+      },
+      {
+        label: "名称",
+        value: "name"
+      },
+      {
+        label: "配方",
+        value: "composition"
+      },
+      {
+        label: "症状",
+        value: "symptom"
+      },
+      {
+        label: "来源",
+        value: "source"
+      }
+    ]
   }
 ]
 
@@ -137,6 +165,8 @@ export default {
         this.$refs.ChemicalTable.startSearch(searchItem.value.type2, searchItem.value.content)
       } else if (searchItem.value.type === "protein") {
         this.$refs.ProteinTable.startSearch(searchItem.value.type2, searchItem.value.content)
+      } else if (searchItem.value.type === "formula") {
+        this.$refs.FormulaTable.startSearch(searchItem.value.type2, searchItem.value.content)
       }
     }
   }
