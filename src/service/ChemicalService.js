@@ -32,9 +32,9 @@ const getByName = async (name, page, size) => {
   }
 }
 
-const ChemicalsService = {
+const ChemicalService = {
   getAll: getAll,
   getByName: getByName
 };
 
-export default ChemicalsService;
+export default ChemicalService;

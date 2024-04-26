@@ -15,8 +15,8 @@ const getAll = async (page, size) => {
   }
 }
 
-const ProteinsService = {
+const ProteinService = {
   getAll: getAll,
 };
 
-export default ProteinsService;
+export default ProteinService;

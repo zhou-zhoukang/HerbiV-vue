@@ -1,22 +1,11 @@
 <script setup>
 import {Search} from "@element-plus/icons-vue";
-import {ref} from 'vue'
 
 import TCMTableView from "@/components/table/TCMTableView.vue";
-import ChemicalsTableView from "@/components/table/ChemicalsTableView.vue";
+import ChemicalTableView from "@/components/table/ChemicalTableView.vue";
 import ProteinTableView from "@/components/table/ProteinTableView.vue";
 
-// 当前搜索的类型和具体内容
-const searchItem = ref({
-  type: 'tcm',
-  type2: 'id',
-  content: ''
-})
 
-// 发送检索请求
-const search = async () => {
-  console.log(searchItem.value)
-}
 </script>
 
 <template>
@@ -25,6 +14,7 @@ const search = async () => {
     <el-select
       size="large"
       placeholder="选择"
+      @change="searchItem.type2 = 'id'"
       v-model="searchItem.type"
       style="width: 80px; margin-left: 10px"
     >
@@ -62,12 +52,21 @@ const search = async () => {
     </el-input>
   </div>
 
-  <TCMTableView v-if="searchItem.type==='tcm'"/>
-  <ChemicalsTableView v-if="searchItem.type==='chemicals'"/>
+  <TCMTableView ref="TCMTable" v-if="searchItem.type === 'tcm'"/>
+  <ChemicalTableView v-if="searchItem.type==='chemicals'"/>
   <ProteinTableView v-if="searchItem.type==='proteins'"/>
 </template>
 
 <script>
+import {ref} from 'vue'
+
+// 当前搜索的类型和具体内容
+const searchItem = ref({
+  type: 'tcm',
+  type2: 'id',
+  content: ''
+})
+
 const searchOptions = [
   {
     label: "中药",
@@ -114,11 +113,21 @@ const searchOptions = [
 ]
 
 export default {
-    data() {
-        return {
-          searchOptions: searchOptions,
-        }
+  setup(){
+    return {
+      searchItem
     }
+  },
+  data() {
+      return {
+        searchOptions: searchOptions,
+      }
+  },
+  methods: {
+    search() {
+      this.$refs.TCMTable.startSearch(searchItem.value.type2, searchItem.value.content)
+    }
+  }
 }
 </script>
 

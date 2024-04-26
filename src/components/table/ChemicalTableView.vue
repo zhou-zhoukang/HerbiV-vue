@@ -1,7 +1,7 @@
 <script setup>
 import {onMounted, reactive} from "vue";
-import ChemicalsService from "@/service/ChemicalsService";
-import ChemicalsTable from "@/components/table/ChemicalsTable.vue";
+import ChemicalService from "@/service/ChemicalService";
+import ChemicalTable from "@/components/table/ChemicalTable.vue";
 
 const state = reactive({
   data: [],
@@ -11,7 +11,7 @@ const state = reactive({
 });
 
 const getAll = async () => {
-  await ChemicalsService.getAll(state.page, state.size).then(res => {
+  await ChemicalService.getAll(state.page, state.size).then(res => {
     state.data = res.content;
     state.total = res.totalElements;
   }).catch(err => {
@@ -40,7 +40,7 @@ const handleSizeChange = (size) => {
 
 <template>
   <div>
-    <ChemicalsTable :chemicals-data="state.data"/>
+    <ChemicalTable :chemicals-data="state.data"/>
     <div style="margin: 10px">
       <el-pagination
         background
@@ -56,6 +56,6 @@ const handleSizeChange = (size) => {
 
 <script>
 export default {
-  name: "ChemicalsTableView",
+  name: "ChemicalTableView",
 }
 </script>

@@ -1,6 +1,6 @@
 <script setup>
-import ProteinsService from "@/service/ProteinsService";
-import ProteinsTable from "@/components/table/ProteinsTable.vue";
+import ProteinService from "@/service/ProteinService";
+import ProteinTable from "@/components/table/ProteinTable.vue";
 import {onMounted, reactive} from "vue";
 
 const state = reactive({
@@ -11,7 +11,7 @@ const state = reactive({
 });
 
 const getAll = async () => {
-  await ProteinsService.getAll(state.page, state.size).then(res => {
+  await ProteinService.getAll(state.page, state.size).then(res => {
     state.data = res.content;
     state.total = res.totalElements;
   }).catch(err => {
@@ -40,7 +40,7 @@ const handleSizeChange = (size) => {
 
 <template>
   <div>
-    <ProteinsTable :tcm-data="state.data"/>
+    <ProteinTable :tcm-data="state.data"/>
     <div style="margin: 10px">
       <el-pagination
         background

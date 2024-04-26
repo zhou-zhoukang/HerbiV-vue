@@ -36,6 +36,16 @@ const handleSizeChange = (size) => {
   state.size = size;
   getAll()
 };
+
+const startSearch = (type, content) => {
+  console.log(type)
+  console.log(content)
+}
+
+// https://blog.csdn.net/luozaiyong/article/details/130101302
+defineExpose({
+  startSearch
+})
 </script>
 
 <template>
@@ -53,6 +63,7 @@ const handleSizeChange = (size) => {
 </template>
 
 <script>
+
 export default {
   name: "TCMTableView"
 }
