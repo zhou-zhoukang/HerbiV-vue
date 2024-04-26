@@ -15,10 +15,11 @@ const getAll = async (page, size) => {
   }
 }
 
-const getAllByIdLike = async (id, page, size) => {
-  const res = await axios.get("/tcm/find_all_by_id", {
+const getAllBy = async (type, content, page, size) => {
+  const res = await axios.get("/tcm/find_all_by", {
     params: {
-      id: id,
+      type: type,
+      content: content,
       page: page,
       size: size
     }
@@ -32,7 +33,7 @@ const getAllByIdLike = async (id, page, size) => {
 
 const TCMService = {
   getAll: getAll,
-  getAllByIdLike: getAllByIdLike
+  getAllBy: getAllBy
 };
 
 export default TCMService;

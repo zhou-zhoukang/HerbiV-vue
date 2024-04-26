@@ -12,46 +12,35 @@ const state = reactive({
   searchContent: ''
 });
 
-const getAll = async () => {
-  await TCMService.getAll(state.page, state.size).then(res => {
-    state.data = res.content;
-    state.total = res.totalElements;
-  }).catch(err => {
-    console.log(err);
-  });
-}
-
-const getAllByIdLike = async (id) => {
-  // 这里不用修改 state 中的 page 和 size，因为后端若没查到数据会自动返回最后一页
-  await TCMService.getAllByIdLike(id, state.page, state.size).then(res => {
-    state.data = res.content;
-    state.total = res.totalElements;
-  }).catch(err => {
-    console.log(err);
-  })
-}
-
-onMounted(getAll);
-
-// 搜索模式和全局模式不同的分页逻辑
-const changePageInfo = () => {
-  if (state.searchType === "id") {
-    getAllByIdLike(state.searchContent);
-  } else if (state.searchType === "cnName") {
-    console.log("TODO");
-  } else if (state.searchType === "enName") {
-    console.log("TODO");
+const getAllBy = async () => {
+  if (state.searchType === "") {
+    await TCMService.getAll(state.page, state.size)
+      .then(res => {
+        state.data = res.content;
+        state.total = res.totalElements;
+      }).catch(err => {
+        console.log(err);
+      });
   } else {
-    getAll()
+    await TCMService.getAllBy(state.searchType, state.searchContent, state.page, state.size)
+      .then(res => {
+        state.data = res.content;
+        state.total = res.totalElements;
+      }).catch(err => {
+        console.log(err);
+      })
   }
+
 }
+
+onMounted(getAllBy);
 
 /** 页码变动事件
  * @param page
  * */
 const handleCurrentChange = (page) => {
   state.page = page;
-  changePageInfo();
+  getAllBy();
 }
 
 /** 每页展示条数变动事件
@@ -59,19 +48,13 @@ const handleCurrentChange = (page) => {
  * */
 const handleSizeChange = (size) => {
   state.size = size;
-  changePageInfo();
+  getAllBy();
 };
 
 const startSearch = (type, content) => {
   state.searchType = type;
   state.searchContent = content;
-  if (type === "id") {
-    getAllByIdLike(content);
-  } else if (type === "cnName") {
-    console.log("按照中文名搜索");
-  } else if (type === "enName") {
-    console.log("按照英文名搜索");
-  }
+  getAllBy();
 }
 
 // https://blog.csdn.net/luozaiyong/article/details/130101302
