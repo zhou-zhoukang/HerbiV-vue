@@ -1,7 +1,7 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
 import Main from "@/views/MainPage.vue"
 import Home from "@/views/HomePage.vue"
-import Detail from "@/views/Detail.vue";
+import RealDetail from "@/views/RealDetail.vue";
 
 const routes = [
     {
@@ -12,7 +12,7 @@ const routes = [
             { path: 'home', component: Home },
             { path: 'search', component: Home },
             { path: 'download', component: Home },
-            { path: 'detail', component: Detail}
+            { path: 'detail', component: RealDetail}
         ]
     },
 ]

@@ -2,32 +2,33 @@
   <p>TCM</p>
   <TCMs :tcm-data="result.tcm"/>
   <p>Target</p>
-  <Proteins :tcm-data="result.protein"/>
+  <ProteinTable :protein-data="result.protein"/>
     <p>chemical</p>
-  <Chemical :tcm-data="result.chemical"/>
+  <ChemicalTable :chemical-data="result.chemical"/>
   <p>Chemical Target Links</p>
   <ChemicalProteinLink :tcm-data="result.chemical_protein_l"/>
   <div id="htmlContainer"></div>
 </template>
 
-
 <script src="">
   export default {
-    name: "Detail"
+    name: "RealDetail"
   }
 </script>
 
 <script setup>
 import {onMounted, reactive, ref} from "vue";
 import SearchService from "@/service/search";
-import TCMs from "@/components/table/TCMTable.vue";
 import router from "@/router";
-import Proteins from "@/components/table/ProteinTable.vue";
+import TCMs from "@/components/table/TCMTable.vue";
 import ChemicalProteinLink from "@/components/table/ChemicalProteinLink.vue";
 import Graph from "@/service/graph";
+import ProteinTable from "@/components/table/ProteinTable.vue";
+import ChemicalTable from "@/components/table/ChemicalTable.vue";
 const type=ref(router.currentRoute.value.query.type)
 const content=ref(router.currentRoute.value.query.content)
-const props = defineProps({
+
+defineProps({
   type: {
     type: String,
     required: true
@@ -57,12 +58,12 @@ const getResult = async ()=>{
   })
 }
 
+// function unescapeHtml(html) {
+//   const doc = new DOMParser().parseFromString(html, 'text/html');
+//   return doc.documentElement.textContent;
+// }
 
-function unescapeHtml(html) {
-  const doc = new DOMParser().parseFromString(html, 'text/html');
-  return doc.documentElement.textContent;
-}
-const getGraph = async ()=>{
+const getGraph = async () => {
   await Graph.getResult().then(res=>{
     const htmlContainer = document.getElementById('htmlContainer');
                     htmlContainer.innerHTML = res;
@@ -77,6 +78,7 @@ async function executeScripts(container) {
                 await eval(scripts[i].innerHTML);
             }
         }
+
 onMounted(
     async ()=>{
       await getResult()
@@ -85,7 +87,3 @@ onMounted(
 )
 </script>
 
-
-<style scoped>
-
-</style>

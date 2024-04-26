@@ -9,7 +9,7 @@
         <el-icon>
           <component :is="item.icon"></component>
         </el-icon>
-        <span slot="title">{{ item.lable }}</span>
+        <span>{{ item.lable }}</span>
       </el-menu-item>
     </el-menu>
   </div>

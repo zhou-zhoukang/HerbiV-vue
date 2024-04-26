@@ -1,5 +1,5 @@
 <script setup>
-const props = defineProps({
+defineProps({
   tcmData: {
     type: Array,
     required: true

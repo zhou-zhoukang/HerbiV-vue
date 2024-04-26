@@ -15,8 +15,8 @@
 </template>
 
 <script>
-import Header from "@/components/meta/Header.vue"
-import Footer from "@/components/meta/Footer.vue"
+import Header from "@/components/meta/HerbivHeader.vue"
+import Footer from "@/components/meta/HerbivFooter.vue"
 
 export default {
   data() {
