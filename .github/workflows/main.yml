@@ -16,7 +16,7 @@ jobs:
       - name: Install dependencies
         run: yarn install
       - name: Install vue-cli-service
-        run: npm install -g @vue/cli
+        run: npm install -g @vue/cli-service
       - name: vue-cli-service build
         run: vue-cli-service build
       - name: Deploy
