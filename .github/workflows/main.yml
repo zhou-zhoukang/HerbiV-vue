@@ -17,6 +17,8 @@ jobs:
         run: yarn install
       - name: Install vue-cli-service
         run: npm install -g @vue/cli-service
+      - name: install @vue/compiler-sfc
+        run: npm install -g @vue/compiler-sfc
       - name: vue-cli-service build
         run: vue-cli-service build
       - name: Deploy
