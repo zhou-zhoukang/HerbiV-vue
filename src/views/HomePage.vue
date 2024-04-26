@@ -44,7 +44,7 @@ import ProteinTableView from "@/components/table/ProteinTableView.vue";
       v-model="searchItem.content"
       style="width: 65%; padding-left: 10px;"
       size="large"
-      placeholder="在此处搜索"
+      placeholder="支持模糊查询"
     >
       <template #append>
         <el-button :icon="Search" @click="search"/>
