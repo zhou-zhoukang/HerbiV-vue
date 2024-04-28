@@ -1,4 +1,4 @@
-name: Build and Deploy herbiv
+name: Build and Deploy herbiv-vue
 on:
   push:
     branches:
@@ -27,9 +27,9 @@ jobs:
           WELCOME: "ssh scp ssh pipelines"
           LASTSSH: "拷贝完成"
         with:
-          host: ${{ secrets.USER_HOST }}
-          user: ${{ secrets.USER_NAME }}
-          pass: ${{ secrets.HUAWEI_PASS }}
+          host: ${{ secrets.HOST }}
+          user: ${{ secrets.NAME }}
+          pass: ${{ secrets.PASS }}
           connect_timeout: 10s
           local: './dist/*'
           remote: /www/herbiv-vue/
