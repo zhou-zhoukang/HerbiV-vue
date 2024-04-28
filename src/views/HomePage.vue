@@ -1,10 +1,31 @@
 <script setup>
-import {Search} from "@element-plus/icons-vue";
-
+import {DataAnalysis, Search} from "@element-plus/icons-vue";
+import { ElMessage } from 'element-plus'
 import TCMTableView from "@/components/table/TCMTableView.vue";
 import ChemicalTableView from "@/components/table/ChemicalTableView.vue";
 import ProteinTableView from "@/components/table/ProteinTableView.vue";
 import FormulaTableView from "@/components/table/FormulaTableView.vue";
+import {reactive, toRaw} from "vue";
+import TCMSelectTable from "@/components/table/TCMSelectTable.vue";
+
+const selectData = reactive({
+  tcms: [],
+})
+
+const showSelectData = (tcm) => {
+  // TODO 这里做去重
+  selectData.tcms.push(toRaw(tcm));
+}
+
+const deleteSelectData = (rowNo) => {
+  selectData.tcms.splice(rowNo, 1);
+}
+
+const startAnalysis = () => {
+  if (selectData.tcms.length === 0) {
+    ElMessage({type: 'warning', message: '请添加想分析的东西'});
+  }
+}
 </script>
 
 <template>
@@ -51,10 +72,13 @@ import FormulaTableView from "@/components/table/FormulaTableView.vue";
     </el-input>
   </div>
 
-  <TCMTableView ref="TCMTable" v-if="searchItem.type === 'tcm'"/>
+  <TCMTableView ref="TCMTable" v-if="searchItem.type === 'tcm'" v-on:listenSelectData="showSelectData"/>
   <ChemicalTableView ref="ChemicalTable" v-if="searchItem.type === 'chemical'"/>
   <ProteinTableView ref="ProteinTable" v-if="searchItem.type === 'protein'"/>
   <FormulaTableView ref="FormulaTable" v-if="searchItem.type === 'formula'"/>
+
+  <el-button :icon="DataAnalysis" @click="startAnalysis">分析</el-button>
+  <TCMSelectTable :tcm-data="selectData.tcms" v-show="selectData.tcms.length > 0" v-on:listenDeleteData="deleteSelectData"/>
 </template>
 
 <script>

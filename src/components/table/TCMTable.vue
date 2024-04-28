@@ -5,11 +5,15 @@ defineProps({
     required: true
   }
 })
+
 </script>
 
 <template>
   <div>
-    <el-table :data="tcmData" style="width: 100%">
+    <el-table
+      :data="tcmData"
+      style="width: 100%"
+    >
       <el-table-column fixed prop="id" label="HVMID" width="100"/>
       <el-table-column fixed prop="cnName" label="中文名" width="150"/>
       <el-table-column prop="pinyinName" label="拼音名" width="210" :show-overflow-tooltip="true"/>
@@ -21,6 +25,3 @@ defineProps({
   </div>
 </template>
 
-<style scoped>
-
-</style>

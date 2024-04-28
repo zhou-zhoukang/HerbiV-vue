@@ -1,7 +1,7 @@
 <script setup>
 import {onMounted, reactive} from "vue";
 import BaseService from "@/service/BaseService";
-import TCMTable from "@/components/table/TCMTable.vue";
+import {Plus} from "@element-plus/icons-vue";
 
 const state = reactive({
   data: [],
@@ -50,10 +50,37 @@ const startSearch = (type, content) => {
 defineExpose({
   startSearch
 })
+
+const emits = defineEmits(['listenSelectData'])
+
+const handleSelectAdd = (rowNo, rowData) => {
+  emits('listenSelectData', rowData);
+}
 </script>
 
 <template>
-  <TCMTable :tcm-data="state.data"/>
+  <div>
+    <el-table
+      :data="state.data"
+      style="width: 100%"
+    >
+      <el-table-column fixed width="60">
+        <template #default="scope">
+          <el-button
+            size="small"
+            :icon="Plus"
+            @click="handleSelectAdd(scope.$index, scope.row)"/>
+        </template>
+      </el-table-column>
+      <el-table-column fixed prop="id" label="HVMID" width="100"/>
+      <el-table-column fixed prop="cnName" label="中文名" width="150"/>
+      <el-table-column prop="pinyinName" label="拼音名" width="210" :show-overflow-tooltip="true"/>
+      <el-table-column prop="enName" label="英文名" width="250" :show-overflow-tooltip="true"/>
+      <el-table-column prop="latinName" label="拉丁名" width="300" :show-overflow-tooltip="true"/>
+      <el-table-column prop="properties" label="properties" width="200" :show-overflow-tooltip="true"/>
+      <el-table-column prop="function" label="功效" width="1000" :show-overflow-tooltip="true"/>
+    </el-table>
+  </div>
   <div style="margin: 10px">
     <el-pagination
       background
