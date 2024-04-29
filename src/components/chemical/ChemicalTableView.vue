@@ -1,6 +1,6 @@
 <script setup>
 import {onMounted, reactive} from "vue";
-import FormulaTable from "@/components/table/FormulaTable.vue";
+import ChemicalTable from "@/components/chemical/ChemicalTable.vue";
 import BaseService from "@/service/BaseService";
 
 const state = reactive({
@@ -13,13 +13,13 @@ const state = reactive({
 });
 
 const list = async () => {
-  await BaseService.formulaList(state.searchType, state.searchContent, state.page, state.size)
+  await BaseService.chemicalList(state.searchType, state.searchContent, state.page, state.size)
     .then(res => {
       state.data = res.content;
       state.total = res.totalElements;
     }).catch(err => {
       console.log(err);
-    });
+    })
 }
 
 onMounted(list);
@@ -50,12 +50,11 @@ const startSearch = (type, content) => {
 defineExpose({
   startSearch
 })
-
 </script>
 
 <template>
   <div>
-    <FormulaTable :formula-data="state.data"/>
+    <ChemicalTable :chemical-data="state.data"/>
     <div style="margin: 10px">
       <el-pagination
         background
@@ -71,6 +70,6 @@ defineExpose({
 
 <script>
 export default {
-  name: "FormulaTableView"
+  name: "ChemicalTableView",
 }
 </script>

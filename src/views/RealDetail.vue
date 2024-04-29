@@ -20,11 +20,11 @@
 import {onMounted, reactive, ref} from "vue";
 import SearchService from "@/service/search";
 import router from "@/router";
-import TCMs from "@/components/table/TCMTable.vue";
+import TCMs from "@/components/tcm/TCMTable.vue";
 import ChemicalProteinLink from "@/components/table/ChemicalProteinLink.vue";
 import Graph from "@/service/graph";
-import ProteinTable from "@/components/table/ProteinTable.vue";
-import ChemicalTable from "@/components/table/ChemicalTable.vue";
+import ProteinTable from "@/components/protein/ProteinTable.vue";
+import ChemicalTable from "@/components/chemical/ChemicalTable.vue";
 const type=ref(router.currentRoute.value.query.type)
 const content=ref(router.currentRoute.value.query.content)
 

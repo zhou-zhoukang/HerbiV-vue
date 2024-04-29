@@ -1,6 +1,6 @@
 <script setup>
-import ProteinTable from "@/components/table/ProteinTable.vue";
 import {onMounted, reactive} from "vue";
+import FormulaTable from "@/components/formula/FormulaTable.vue";
 import BaseService from "@/service/BaseService";
 
 const state = reactive({
@@ -13,13 +13,13 @@ const state = reactive({
 });
 
 const list = async () => {
-  await BaseService.proteinList(state.searchType, state.searchContent, state.page, state.size)
+  await BaseService.formulaList(state.searchType, state.searchContent, state.page, state.size)
     .then(res => {
       state.data = res.content;
       state.total = res.totalElements;
     }).catch(err => {
       console.log(err);
-    })
+    });
 }
 
 onMounted(list);
@@ -50,11 +50,12 @@ const startSearch = (type, content) => {
 defineExpose({
   startSearch
 })
+
 </script>
 
 <template>
   <div>
-    <ProteinTable :protein-data="state.data"/>
+    <FormulaTable :formula-data="state.data"/>
     <div style="margin: 10px">
       <el-pagination
         background
@@ -70,7 +71,6 @@ defineExpose({
 
 <script>
 export default {
-  name: "ProteinTableView"
+  name: "FormulaTableView"
 }
 </script>
-

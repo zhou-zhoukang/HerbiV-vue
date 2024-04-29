@@ -1,12 +1,12 @@
 <script setup>
 import {DataAnalysis, Search} from "@element-plus/icons-vue";
 import { ElMessage } from 'element-plus'
-import TCMTableView from "@/components/table/TCMTableView.vue";
-import ChemicalTableView from "@/components/table/ChemicalTableView.vue";
-import ProteinTableView from "@/components/table/ProteinTableView.vue";
-import FormulaTableView from "@/components/table/FormulaTableView.vue";
+import TCMTableView from "@/components/tcm/TCMTableView.vue";
+import ChemicalTableView from "@/components/chemical/ChemicalTableView.vue";
+import ProteinTableView from "@/components/protein/ProteinTableView.vue";
+import FormulaTableView from "@/components/formula/FormulaTableView.vue";
 import {reactive, toRaw} from "vue";
-import TCMSelectTable from "@/components/table/TCMSelectTable.vue";
+import TCMSelectTable from "@/components/tcm/TCMSelectTable.vue";
 
 const selectData = reactive({
   tcms: [],
@@ -24,7 +24,9 @@ const deleteSelectData = (rowNo) => {
 const startAnalysis = () => {
   if (selectData.tcms.length === 0) {
     ElMessage({type: 'warning', message: '请添加想分析的东西'});
+    return;
   }
+  ElMessage({type: 'success', message: '请求分析成功，请至分析界面查看详情'});
 }
 </script>
 

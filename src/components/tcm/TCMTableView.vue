@@ -63,6 +63,7 @@ const handleSelectAdd = (rowNo, rowData) => {
     <el-table
       :data="state.data"
       style="width: 100%"
+      height="400"
     >
       <el-table-column fixed width="60">
         <template #default="scope">
