@@ -1,4 +1,4 @@
-name: Build and Deploy herbiv-vue
+name: Build and Deploy HerbiV-vue
 on:
   push:
     branches:
@@ -17,11 +17,11 @@ jobs:
         run: yarn install
       - name: Install vue-cli-service
         run: npm install -g @vue/cli-service
-      - name: install @vue/compiler-sfc
+      - name: Install @vue/compiler-sfc
         run: npm install -g @vue/compiler-sfc
-      - name: vue-cli-service build
-        run: vue-cli-service build
-      - name: Deploy
+      - name: yarn run publish
+        run: yarn run publish
+      - name: Deploy HerbiV
         uses: cross-the-world/scp-pipeline@master
         env:
           WELCOME: "ssh scp ssh pipelines"

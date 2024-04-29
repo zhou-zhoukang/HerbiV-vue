@@ -6,8 +6,7 @@ import ElementPlus from 'element-plus'
 import 'element-plus/dist/index.css'
 import router from '@/router/index.js'
 import axios from "axios";
-import config from "@/config/config"
-axios.defaults.baseURL=`${config.baseUrl}/api`;
+axios.defaults.baseURL=`${process.env.VUE_APP_API_URL}`;
 
 const app = createApp(App)
 app.use(ElementPlus)
