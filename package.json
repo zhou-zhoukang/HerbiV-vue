@@ -3,10 +3,10 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
+    "lint": "vue-cli-service lint",
     "dev": "vue-cli-service serve --open --mode development",
     "production": "vue-cli-service serve --open --mode production",
     "build": "vue-cli-service build -mode development",
-    "lint": "vue-cli-service lint",
     "publish": "vue-cli-service build --mode production",
     "version": "npm list vue"
   },
