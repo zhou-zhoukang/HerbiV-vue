@@ -173,6 +173,7 @@ const searchOptions = [
 ]
 
 export default {
+  name: "HomePage",
   setup(){
     return {
       searchItem

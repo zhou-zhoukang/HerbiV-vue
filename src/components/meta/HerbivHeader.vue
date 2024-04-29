@@ -33,11 +33,9 @@
 }
 </style>
 
-<script setup>
-import { House, Search, Download, HelpFilled } from "@element-plus/icons-vue"
-</script>
-
 <script>
+import {DataAnalysis, House, Download, HelpFilled} from "@element-plus/icons-vue";
+
 export default {
   data() {
     return {
@@ -50,10 +48,10 @@ export default {
           icon: House
         },
         {
-          path: "/search",
-          name: "search",
-          lable: "搜索",
-          icon: Search
+          path: "/result",
+          name: "result",
+          lable: "结果",
+          icon: DataAnalysis
         },
         {
           path: "/download",

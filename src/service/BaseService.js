@@ -1,5 +1,7 @@
 import axios from "axios";
-
+/**
+ * 查询服务
+ * */
 const tcmList = async (type, content, page, size) => {
   const res = await axios.get("/tcm/list", {
     params: {

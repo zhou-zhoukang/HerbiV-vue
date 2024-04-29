@@ -3,7 +3,7 @@
   <TCMs :tcm-data="result.tcm"/>
   <p>Target</p>
   <ProteinTable :protein-data="result.protein"/>
-    <p>chemical</p>
+  <p>chemical</p>
   <ChemicalTable :chemical-data="result.chemical"/>
   <p>Chemical Target Links</p>
   <ChemicalProteinLink :tcm-data="result.chemical_protein_l"/>
@@ -55,7 +55,7 @@ const getResult = async ()=>{
     result.protein=eval(res.protein)
     result.chemical=eval(res.chem)
     result.chemical_protein_l=eval(res.chem_protein_l)
-  })
+  });
 }
 
 // function unescapeHtml(html) {
