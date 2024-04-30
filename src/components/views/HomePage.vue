@@ -7,6 +7,7 @@ import ProteinTableView from "@/components/protein/ProteinTableView.vue";
 import FormulaTableView from "@/components/formula/FormulaTableView.vue";
 import {reactive, toRaw} from "vue";
 import TCMSelectTable from "@/components/tcm/TCMSelectTable.vue";
+// import AnalysisService from "@/service/AnalysisService";
 
 const selectData = reactive({
   tcms: [],
@@ -21,11 +22,16 @@ const deleteSelectData = (rowNo) => {
   selectData.tcms.splice(rowNo, 1);
 }
 
-const startAnalysis = () => {
+const startAnalysis = async () => {
   if (selectData.tcms.length === 0) {
     ElMessage({type: 'warning', message: '请添加想分析的东西'});
     return;
   }
+  // const tcmIds = selectData.tcms.map(item => {return item.id});
+  // await AnalysisService.fromTcm(tcmIds)
+  //   .then(res => {
+  //
+  //   })
   ElMessage({type: 'success', message: '请求分析成功，请至分析界面查看详情'});
 }
 </script>

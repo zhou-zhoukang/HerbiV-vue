@@ -1,16 +1,43 @@
+<script setup>
+import {Setting} from "@element-plus/icons-vue";
+import { useDark, useToggle } from '@vueuse/core'
+const isDark = useDark()
+const toggleDark = useToggle(isDark)
+</script>
+
 <template>
-  <div class="imagediv">
-    <img src="../../../public/assets/logo.png" class="image" alt="">
+  <div class="image-div">
+    <img src="../../../public/assets/logo.png" class="image" alt="logo">
   </div>
   <div class="header">
-    <el-menu :default-active="activeIndex2" class="elmenu" mode="horizontal" @select="handleSelect"
-      background-color="#B4C7E7" text-color="#fff" active-text-color="#ffd04b">
-      <el-menu-item @click="clickMenu(item)" v-for="item in menuData" :key="item.name" :index="item.name">
-        <el-icon>
-          <component :is="item.icon"></component>
-        </el-icon>
-        <span>{{ item.lable }}</span>
+    <el-menu
+      :default-active="activeIndex"
+      class="el-menu"
+      mode="horizontal"
+      @select="handleSelect()"
+    >
+
+      <el-menu-item
+        @click="clickMenu(item)"
+        v-for="item in menuData" :key="item.name"
+        :index="item.name"
+      >
+        <el-icon><component :is="item.icon"></component></el-icon>
+        <span>{{ item.label }}</span>
       </el-menu-item>
+
+      <el-sub-menu
+        index="2"
+
+      >
+        <template #title><el-icon><Setting /></el-icon> 设置</template>
+        <el-menu-item
+          index="2-1"
+          @click="toggleDark()"
+        >
+          切换主题
+        </el-menu-item>
+      </el-sub-menu>
     </el-menu>
   </div>
 </template>
@@ -18,10 +45,11 @@
 <style>
 .el-menu {
   justify-content: center;
+  background-color: var(--el-color-primary-light-7);
 }
 
-.imagediv {
-  background-color: #B4C7E7;
+.image-div {
+  background-color: var(--el-color-primary-light-7);
   height: 73px;
 }
 
@@ -39,30 +67,30 @@ import {DataAnalysis, House, Download, HelpFilled} from "@element-plus/icons-vue
 export default {
   data() {
     return {
-      activeIndex2: '1',
+      activeIndex: '1',
       menuData: [
         {
           path: "/",
           name: "home",
-          lable: "首页",
+          label: "首页",
           icon: House
         },
         {
           path: "/result",
           name: "result",
-          lable: "结果",
+          label: "结果",
           icon: DataAnalysis
         },
         {
           path: "/download",
           name: "download",
-          lable: "下载",
+          label: "下载",
           icon: Download
         },
         {
           path: "/help",
           name: "help",
-          lable: "帮助",
+          label: "帮助",
           icon: HelpFilled
         }
       ]
@@ -73,7 +101,7 @@ export default {
       console.log(key, keyPath);
     },
     clickMenu(item) {
-      if (this.$route.path != item.path && !(this.$route.path === '/home' && (item.path === '/'))) {
+      if (this.$route.path !== item.path && !(this.$route.path === '/home' && (item.path === '/'))) {
         this.$router.push(item.path)
       }
     }

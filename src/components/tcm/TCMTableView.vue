@@ -47,9 +47,7 @@ const startSearch = (type, content) => {
 }
 
 // https://blog.csdn.net/luozaiyong/article/details/130101302
-defineExpose({
-  startSearch
-})
+defineExpose({startSearch})
 
 const emits = defineEmits(['listenSelectData'])
 

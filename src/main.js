@@ -4,6 +4,7 @@ import App from './App.vue'
 import ElementPlus from 'element-plus'
 // 引用所有样式
 import 'element-plus/dist/index.css'
+import 'element-plus/theme-chalk/dark/css-vars.css'
 import router from '@/router/index.js'
 import axios from "axios";
 axios.defaults.baseURL=`${process.env.VUE_APP_API_URL}`;
