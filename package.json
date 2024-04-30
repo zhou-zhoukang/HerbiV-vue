@@ -17,6 +17,7 @@
     "echarts": "^5.4.2",
     "element-plus": "^2.3.5",
     "vue": "^3.2.26",
+    "vue-clipboard3": "^2.0.0",
     "vue-router": "4",
     "vuex": "^4.0.2"
   },

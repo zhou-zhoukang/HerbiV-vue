@@ -1,14 +1,16 @@
 <script setup>
 import {DataAnalysis, Search} from "@element-plus/icons-vue";
-import { ElMessage } from 'element-plus'
+import {ElMessage, ElMessageBox} from 'element-plus'
 import TCMTableView from "@/components/tcm/TCMTableView.vue";
 import ChemicalTableView from "@/components/chemical/ChemicalTableView.vue";
 import ProteinTableView from "@/components/protein/ProteinTableView.vue";
 import FormulaTableView from "@/components/formula/FormulaTableView.vue";
 import {reactive, toRaw} from "vue";
 import TCMSelectTable from "@/components/tcm/TCMSelectTable.vue";
-// import AnalysisService from "@/service/AnalysisService";
+import AnalysisService from "@/service/AnalysisService";
+import useClipboard from 'vue-clipboard3'
 
+const { toClipboard } = useClipboard()
 const selectData = reactive({
   tcms: [],
 })
@@ -22,17 +24,30 @@ const deleteSelectData = (rowNo) => {
   selectData.tcms.splice(rowNo, 1);
 }
 
+
+
 const startAnalysis = async () => {
   if (selectData.tcms.length === 0) {
-    ElMessage({type: 'warning', message: '请添加想分析的东西'});
+    ElMessage({type: 'warning', message: '请添加想分析的中药'});
     return;
   }
-  // const tcmIds = selectData.tcms.map(item => {return item.id});
-  // await AnalysisService.fromTcm(tcmIds)
-  //   .then(res => {
-  //
-  //   })
-  ElMessage({type: 'success', message: '请求分析成功，请至分析界面查看详情'});
+  const tcmIds = selectData.tcms.map(item => {return item.id});
+  await AnalysisService.fromTcm(tcmIds)
+    .then(res => {
+      if (res.code === 2000) {
+        ElMessageBox.alert(res.analysis_no, '分析号', {
+          // autofocus: false,
+          confirmButtonText: '复制并退出',
+          callback: (action) => {
+            toClipboard(res.analysis_no)
+            ElMessage({
+              type: 'success',
+              message: `分析号已复制，请至结果界面查看`,
+            })
+          },
+        })
+      }
+    });
 }
 </script>
 
@@ -85,7 +100,7 @@ const startAnalysis = async () => {
   <ProteinTableView ref="ProteinTable" v-if="searchItem.type === 'protein'"/>
   <FormulaTableView ref="FormulaTable" v-if="searchItem.type === 'formula'"/>
 
-  <el-button :icon="DataAnalysis" @click="startAnalysis">分析</el-button>
+  <el-button :icon="DataAnalysis" @click="startAnalysis()">分析</el-button>
   <TCMSelectTable :tcm-data="selectData.tcms" v-show="selectData.tcms.length > 0" v-on:listenDeleteData="deleteSelectData"/>
 </template>
 
