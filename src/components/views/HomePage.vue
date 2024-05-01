@@ -43,7 +43,7 @@ const startAnalysis = async () => {
             ElMessage({
               type: 'success',
               message: `分析号已复制，请至结果界面查看`,
-            })
+            });
           },
         })
       }

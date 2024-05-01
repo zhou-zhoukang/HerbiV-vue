@@ -21,7 +21,7 @@ import {onMounted, reactive, ref} from "vue";
 import SearchService from "@/service/search";
 import router from "@/router";
 import TCMs from "@/components/tcm/TCMTable.vue";
-import ChemicalProteinLink from "@/components/table/ChemicalProteinLink.vue";
+import ChemicalProteinLink from "@/components/result/ChemicalProteinLink.vue";
 import Graph from "@/service/graph";
 import ProteinTable from "@/components/protein/ProteinTable.vue";
 import ChemicalTable from "@/components/chemical/ChemicalTable.vue";
