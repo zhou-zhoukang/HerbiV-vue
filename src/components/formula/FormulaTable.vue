@@ -11,7 +11,7 @@ defineProps({
   <div>
     <el-table :data="formulaData"
               stripe border fit style="width: 100%"
-              max-height="1000"
+              height="400"
               highlight-current-row
     >
       <el-table-column fixed prop="id" label="ID" width="100"/>
