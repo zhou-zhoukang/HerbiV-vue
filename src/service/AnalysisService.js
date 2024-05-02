@@ -25,9 +25,21 @@ const getResult = async (analysisNo) => {
   }
 }
 
+const getChart = async (analysisNo) => {
+  const formData = new FormData()
+  formData.append('analysis_no', analysisNo)
+  const res = await axios.post("/herbiv/get_chart", formData);
+  try {
+    return res.data;
+  } catch (error) {
+    return error;
+  }
+}
+
 const AnalysisService = {
   fromTcm: fromTcm,
-  getResult: getResult
+  getResult: getResult,
+  getChart: getChart
 };
 
 export default AnalysisService;

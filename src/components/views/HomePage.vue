@@ -16,8 +16,14 @@ const selectData = reactive({
 })
 
 const showSelectData = (tcm) => {
-  // TODO 这里做去重
-  selectData.tcms.push(toRaw(tcm));
+  // 去重
+  let flag = true;
+  selectData.tcms.forEach(item => {
+    if (item.id === tcm.id) {
+      flag = false;
+    }
+  })
+  if (flag) selectData.tcms.push(toRaw(tcm));
 }
 
 const deleteSelectData = (rowNo) => {

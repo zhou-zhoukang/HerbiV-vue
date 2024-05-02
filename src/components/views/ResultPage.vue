@@ -16,6 +16,14 @@ const data = reactive({
   createTime: ''
 })
 
+const executeScripts = async (container) => {
+  const scripts = container.getElementsByTagName('script');
+  scripts.async = true
+  for (let i = 1; i < scripts.length; i++) {
+    await eval(scripts[i].innerHTML);
+  }
+}
+
 const search = async () => {
   if (analysisNo.value === '') {
     ElMessage({type: 'warning', message: '请输入分析号'});
@@ -31,6 +39,13 @@ const search = async () => {
         data.createTime = res.create_time;
       }
     });
+
+  await AnalysisService.getChart(analysisNo.value)
+    .then(res => {
+      const htmlContainer = document.getElementById('htmlContainer');
+      htmlContainer.innerHTML = res;
+      executeScripts(htmlContainer);
+    })
 }
 </script>
 
@@ -52,6 +67,7 @@ const search = async () => {
   <ChemicalResultTable :chem-data="data.result.chem" v-if="data.result !== ''"/>
   <ChemicalProteinLinkResultTable :chem-protein-data="data.result.chem_protein_link" v-if="data.result !== ''"/>
   <ProteinResultTable :protein-data="data.result.protein" v-if="data.result !== ''"/>
+  <div id="htmlContainer" class="html-container"></div>
 </template>
 
 <script>
@@ -59,3 +75,9 @@ export default {
   name: "ResultPage"
 }
 </script>
+
+<style>
+.html-container {
+  width: 50%
+}
+</style>
