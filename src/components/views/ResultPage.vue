@@ -5,6 +5,9 @@ import AnalysisService from "@/service/AnalysisService";
 import {ElMessage} from "element-plus";
 import TCMResultTable from "@/components/result/TCMResultTable.vue";
 import TCMChemicalLinkResultTable from "@/components/result/TCMChemicalLinkResultTable.vue";
+import ChemicalResultTable from "@/components/result/ChemicalResultTable.vue";
+import ChemicalProteinLinkResultTable from "@/components/result/ChemicalProteinLinkResultTable.vue";
+import ProteinResultTable from "@/components/result/ProteinResultTable.vue";
 
 const analysisNo = ref('')
 const data = reactive({
@@ -46,7 +49,9 @@ const search = async () => {
 
   <TCMResultTable :tcm-data="data.result.tcm" v-if="data.result !== ''"/>
   <TCMChemicalLinkResultTable :tcm-chem-data="data.result.tcm_chem_link" v-if="data.result !== ''"/>
-
+  <ChemicalResultTable :chem-data="data.result.chem" v-if="data.result !== ''"/>
+  <ChemicalProteinLinkResultTable :chem-protein-data="data.result.chem_protein_link" v-if="data.result !== ''"/>
+  <ProteinResultTable :protein-data="data.result.protein" v-if="data.result !== ''"/>
 </template>
 
 <script>
