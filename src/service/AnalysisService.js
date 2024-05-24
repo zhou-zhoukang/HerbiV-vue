@@ -5,7 +5,7 @@ import axios from "axios";
  * @param score
  * */
 const fromTcm = async (tcmIds, score) => {
-  const res = await axios.post("/herbiv/from_tcm", {
+  const res = await axios.post("/api/herbiv/from_tcm", {
     "tcms": tcmIds,
     "score": score
   });
@@ -17,7 +17,7 @@ const fromTcm = async (tcmIds, score) => {
 }
 
 const fromFormula = async (formulaIds, score) => {
-  const res = await axios.post("/herbiv/from_formula", {
+  const res = await axios.post("/api/herbiv/from_formula", {
     "formulas": formulaIds,
     "score": score
   });
@@ -29,7 +29,7 @@ const fromFormula = async (formulaIds, score) => {
 }
 
 const fromTcmProtein = async (tcmIds, proteinIds, score) => {
-  const res = await axios.post("/herbiv/from_tcm_protein", {
+  const res = await axios.post("/api/herbiv/from_tcm_protein", {
     "tcms": tcmIds,
     "proteins": proteinIds,
     "score": score
@@ -42,7 +42,7 @@ const fromTcmProtein = async (tcmIds, proteinIds, score) => {
 }
 
 const fromFormulaProtein = async (formulaIds, proteinIds, score) => {
-  const res = await axios.post("/herbiv/from_formula_protein", {
+  const res = await axios.post("/api/herbiv/from_formula_protein", {
     "formulas": formulaIds,
     "proteins": proteinIds,
     "score": score
@@ -55,7 +55,7 @@ const fromFormulaProtein = async (formulaIds, proteinIds, score) => {
 }
 
 const fromProtein = async (proteinIds, score) => {
-  const res = await axios.post("/herbiv/from_protein", {
+  const res = await axios.post("/api/herbiv/from_protein", {
     "proteins": proteinIds,
     "score": score
   });
@@ -69,7 +69,7 @@ const fromProtein = async (proteinIds, score) => {
 const getResult = async (analysisNo) => {
   const formData = new FormData()
   formData.append('analysis_no', analysisNo)
-  const res = await axios.post("/herbiv/get_result", formData);
+  const res = await axios.post("/api/herbiv/get_result", formData);
   try {
     return res.data;
   } catch (error) {
@@ -78,7 +78,7 @@ const getResult = async (analysisNo) => {
 }
 
 const getStatic = async (staticPath) => {
-  const res = await axios.get(staticPath);
+  const res = await axios.get(`/${staticPath}`);
   try {
     return res.data;
   } catch (error) {

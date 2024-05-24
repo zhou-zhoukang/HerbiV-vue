@@ -53,18 +53,18 @@ defineExpose({
 </script>
 
 <template>
-  <div>
-    <ChemicalTable :chemical-data="state.data"/>
-    <div style="margin: 10px">
-      <el-pagination
+  <div style="margin: 10px">
+    <el-pagination
         background
         layout="prev, pager, next ,total, sizes"
         :page-sizes="[10, 20, 30, 40]"
         :total="state.total"
         @current-change="handleCurrentChange"
         @size-change="handleSizeChange"
-      />
-    </div>
+    />
+  </div>
+  <div>
+    <ChemicalTable :chemical-data="state.data"/>
   </div>
 </template>
 

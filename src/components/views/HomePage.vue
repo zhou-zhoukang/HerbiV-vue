@@ -1,18 +1,18 @@
 <script setup>
 import {DataAnalysis, Search} from "@element-plus/icons-vue";
-// import {ElMessage, ElMessageBox} from 'element-plus'
+import {ElMessage, ElMessageBox} from 'element-plus'
 import TCMTableView from "@/components/tcm/TCMTableView.vue";
 import ChemicalTableView from "@/components/chemical/ChemicalTableView.vue";
 import ProteinTableView from "@/components/protein/ProteinTableView.vue";
 import FormulaTableView from "@/components/formula/FormulaTableView.vue";
 import {reactive, toRaw} from "vue";
 import TCMSelectTable from "@/components/tcm/TCMSelectTable.vue";
-// import AnalysisService from "@/service/AnalysisService";
-// import useClipboard from 'vue-clipboard3'
+import AnalysisService from "@/service/AnalysisService";
+import useClipboard from 'vue-clipboard3'
 import FormulaSelectTable from "@/components/formula/FormulaSelectTable.vue";
 import ProteinSelectTable from "@/components/protein/ProteinSelectTable.vue";
 
-// const { toClipboard } = useClipboard()
+const { toClipboard } = useClipboard()
 const selectData = reactive({
   tcms: [],
   formulas: [],
@@ -64,43 +64,73 @@ const deleteProteinSelectedData = (rowNo) => {
   selectData.proteins.splice(rowNo, 1);
 }
 
-// const startAnalysis = async () => {
-//   if (selectData.tcms.length === 0) {
-//     ElMessage({type: 'warning', message: '请添加想分析的中药'});
-//     return;
-//   }
-//   const tcmIds = selectData.tcms.map(item => {return item.id});
-//   await AnalysisService.fromTcm(tcmIds)
-//     .then(res => {
-//       if (res.code === 2000) {
-//         ElMessageBox.alert(res.analysis_no, '分析号', {
-//           // autofocus: false,
-//           confirmButtonText: '复制并退出',
-//           callback: (action) => {
-//             toClipboard(res.analysis_no)
-//             ElMessage({
-//               type: 'success',
-//               message: `分析号已复制，请至结果界面查看`,
-//             });
-//           },
-//         })
-//       }
-//     });
-// }
-
 const fromTcm = async () => {
-
+  if (selectData.tcms.length === 0) {
+    ElMessage({type: 'warning', message: '请添加想分析的中药'});
+    return;
+  }
+  const tcmIds = selectData.tcms.map(item => {return item.id});
+  await AnalysisService.fromTcm(tcmIds, 990)
+    .then(res => {
+      if (res.code === 2000) {
+        ElMessageBox.alert(res.msg, '分析号', {
+          // autofocus: false,
+          confirmButtonText: '复制并退出',
+          callback: (action) => {
+            toClipboard(res.msg)
+            ElMessage({
+              type: 'success',
+              message: `分析号已复制，请至结果界面查看`,
+            });
+          },
+        })
+      }
+    });
 }
+
 const fromFormula = async () => {
+  if (selectData.formulas.length === 0) {
+    ElMessage({type: 'warning', message: '请添加想分析的复方'});
+    return;
+  }
+  const formulaIds = selectData.formulas.map(item => {return item.id});
 
 }
+
 const fromTcmProtein = async () => {
+  if (selectData.tcms.length === 0) {
+    ElMessage({type: 'warning', message: '请添加想分析的中药'});
+    return;
+  }
+  if (selectData.proteins.length === 0) {
+    ElMessage({type: 'warning', message: '请添加想分析的靶点'});
+    return;
+  }
+  const tcmIds = selectData.tcms.map(item => {return item.id});
+  const proteinIds = selectData.proteins.map(item => {return item.id});
 
 }
+
 const fromFormulaProtein = async () => {
+  if (selectData.formulas.length === 0) {
+    ElMessage({type: 'warning', message: '请添加想分析的复方'});
+    return;
+  }
+  if (selectData.proteins.length === 0) {
+    ElMessage({type: 'warning', message: '请添加想分析的靶点'});
+    return;
+  }
+  const formulaIds = selectData.formulas.map(item => {return item.id});
+  const proteinIds = selectData.proteins.map(item => {return item.id});
 
 }
+
 const fromProtein = async () => {
+  if (selectData.proteins.length === 0) {
+    ElMessage({type: 'warning', message: '请添加想分析的靶点'});
+    return;
+  }
+  const proteinIds = selectData.proteins.map(item => {return item.id});
 
 }
 </script>

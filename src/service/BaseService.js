@@ -3,7 +3,7 @@ import axios from "axios";
  * 查询服务
  * */
 const tcmList = async (type, content, page, size) => {
-  const res = await axios.get("/tcm/list", {
+  const res = await axios.get("/api/tcm/list", {
     params: {
       type: type,
       content: content,
@@ -19,7 +19,7 @@ const tcmList = async (type, content, page, size) => {
 }
 
 const chemicalList = async (type, content, page, size) => {
-  const res = await axios.get('/chemical/list', {
+  const res = await axios.get('/api/chemical/list', {
     params:{
       type: type,
       content: content,
@@ -35,7 +35,7 @@ const chemicalList = async (type, content, page, size) => {
 }
 
 const proteinList = async (type, content, page, size) => {
-  const res = await axios.get('/protein/list', {
+  const res = await axios.get('/api/protein/list', {
     params:{
       type: type,
       content: content,
@@ -51,7 +51,7 @@ const proteinList = async (type, content, page, size) => {
 }
 
 const formulaList = async (type, content, page, size) => {
-  const res = await axios.get('/formula/list', {
+  const res = await axios.get('/api/formula/list', {
     params:{
       type: type,
       content: content,

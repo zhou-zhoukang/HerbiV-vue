@@ -11,18 +11,19 @@ import ProteinResultTable from "@/components/result/ProteinResultTable.vue";
 
 const analysisNo = ref('')
 const data = reactive({
-  result: '',
-  inputIds: '',
-  createTime: ''
+  resultReq: '',
+  echartReq: '',
+  cytoReq: '',
+  result: ''
 })
 
-const executeScripts = async (container) => {
-  const scripts = container.getElementsByTagName('script');
-  scripts.async = true
-  for (let i = 1; i < scripts.length; i++) {
-    await eval(scripts[i].innerHTML);
-  }
-}
+// const executeScripts = async (container) => {
+//   const scripts = container.getElementsByTagName('script');
+//   scripts.async = true
+//   for (let i = 1; i < scripts.length; i++) {
+//     await eval(scripts[i].innerHTML);
+//   }
+// }
 
 const search = async () => {
   if (analysisNo.value === '') {
@@ -34,18 +35,22 @@ const search = async () => {
       if (res.code !== 2000) {
         ElMessage({type: 'warning', message: res.msg});
       } else {
-        data.result = res.result;
-        data.inputIds = res.input_ids;
-        data.createTime = res.create_time;
+        data.resultReq = res.resultReq;
+        data.echartReq = res.echartReq;
+        data.cytoReq = res.cytoReq;
       }
     });
 
-  await AnalysisService.getChart(analysisNo.value)
-    .then(res => {
-      const htmlContainer = document.getElementById('htmlContainer');
-      htmlContainer.innerHTML = res;
-      executeScripts(htmlContainer);
-    })
+  await AnalysisService.getStatic(data.resultReq)
+      .then(res => {
+        data.result = res
+      })
+  // await AnalysisService.getChart(analysisNo.value)
+  //   .then(res => {
+  //     const htmlContainer = document.getElementById('htmlContainer');
+  //     htmlContainer.innerHTML = res;
+  //     executeScripts(htmlContainer);
+  //   })
 }
 </script>
 
