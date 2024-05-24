@@ -30,26 +30,26 @@ const showTcmSelectedData = (tcm) => {
   if (flag) selectData.tcms.push(toRaw(tcm));
 }
 
-const showFormulaSelectedData = (tcm) => {
+const showFormulaSelectedData = (formula) => {
   // 去重
   let flag = true;
   selectData.formulas.forEach(item => {
-    if (item.id === tcm.id) {
+    if (item.id === formula.id) {
       flag = false;
     }
   })
-  if (flag) selectData.formulas.push(toRaw(tcm));
+  if (flag) selectData.formulas.push(toRaw(formula));
 }
 
-const showPtoteinSelectedData = (tcm) => {
+const showProteinSelectedData = (protein) => {
   // 去重
   let flag = true;
   selectData.proteins.forEach(item => {
-    if (item.id === tcm.id) {
+    if (item.id === protein.id) {
       flag = false;
     }
   })
-  if (flag) selectData.proteins.push(toRaw(tcm));
+  if (flag) selectData.proteins.push(toRaw(protein));
 }
 
 const deleteTcmSelectedData = (rowNo) => {
@@ -64,6 +64,22 @@ const deleteProteinSelectedData = (rowNo) => {
   selectData.proteins.splice(rowNo, 1);
 }
 
+const fromCallback = res => {
+  if (res.code === 2000) {
+    ElMessageBox.alert(res.msg, '分析号', {
+      // autofocus: false,
+      confirmButtonText: '复制并退出',
+      callback: (action) => {
+        toClipboard(res.msg)
+        ElMessage({
+          type: 'success',
+          message: `分析号已复制，请至结果界面查看`,
+        });
+      },
+    });
+  }
+}
+
 const fromTcm = async () => {
   if (selectData.tcms.length === 0) {
     ElMessage({type: 'warning', message: '请添加想分析的中药'});
@@ -71,21 +87,7 @@ const fromTcm = async () => {
   }
   const tcmIds = selectData.tcms.map(item => {return item.id});
   await AnalysisService.fromTcm(tcmIds, 990)
-    .then(res => {
-      if (res.code === 2000) {
-        ElMessageBox.alert(res.msg, '分析号', {
-          // autofocus: false,
-          confirmButtonText: '复制并退出',
-          callback: (action) => {
-            toClipboard(res.msg)
-            ElMessage({
-              type: 'success',
-              message: `分析号已复制，请至结果界面查看`,
-            });
-          },
-        })
-      }
-    });
+    .then(fromCallback)
 }
 
 const fromFormula = async () => {
@@ -94,7 +96,8 @@ const fromFormula = async () => {
     return;
   }
   const formulaIds = selectData.formulas.map(item => {return item.id});
-
+  await AnalysisService.fromFormula(formulaIds, 990)
+      .then(fromCallback)
 }
 
 const fromTcmProtein = async () => {
@@ -108,7 +111,8 @@ const fromTcmProtein = async () => {
   }
   const tcmIds = selectData.tcms.map(item => {return item.id});
   const proteinIds = selectData.proteins.map(item => {return item.id});
-
+  await AnalysisService.fromTcmProtein(tcmIds, proteinIds, 990)
+      .then(fromCallback)
 }
 
 const fromFormulaProtein = async () => {
@@ -122,7 +126,8 @@ const fromFormulaProtein = async () => {
   }
   const formulaIds = selectData.formulas.map(item => {return item.id});
   const proteinIds = selectData.proteins.map(item => {return item.id});
-
+  await AnalysisService.fromFormulaProtein(formulaIds, proteinIds, 990)
+      .then(fromCallback)
 }
 
 const fromProtein = async () => {
@@ -131,7 +136,8 @@ const fromProtein = async () => {
     return;
   }
   const proteinIds = selectData.proteins.map(item => {return item.id});
-
+  await AnalysisService.fromProtein(proteinIds, proteinIds, 990)
+      .then(fromCallback)
 }
 </script>
 
@@ -194,7 +200,7 @@ const fromProtein = async () => {
 <!--  总体数据展示 -->
   <TCMTableView ref="TCMTable" v-if="searchItem.type === 'tcm'" v-on:listenSelectData="showTcmSelectedData"/>
   <ChemicalTableView ref="ChemicalTable" v-if="searchItem.type === 'chemical'"/>
-  <ProteinTableView ref="ProteinTable" v-if="searchItem.type === 'protein'" v-on:listenSelectData="showPtoteinSelectedData"/>
+  <ProteinTableView ref="ProteinTable" v-if="searchItem.type === 'protein'" v-on:listenSelectData="showProteinSelectedData"/>
   <FormulaTableView ref="FormulaTable" v-if="searchItem.type === 'formula'" v-on:listenSelectData="showFormulaSelectedData"/>
 </template>
 

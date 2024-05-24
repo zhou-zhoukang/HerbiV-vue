@@ -17,13 +17,13 @@ const data = reactive({
   result: ''
 })
 
-// const executeScripts = async (container) => {
-//   const scripts = container.getElementsByTagName('script');
-//   scripts.async = true
-//   for (let i = 1; i < scripts.length; i++) {
-//     await eval(scripts[i].innerHTML);
-//   }
-// }
+const executeScripts = async (container) => {
+  const scripts = container.getElementsByTagName('script');
+  scripts.async = true
+  for (let i = 1; i < scripts.length; i++) {
+    await eval(scripts[i].innerHTML);
+  }
+}
 
 const search = async () => {
   if (analysisNo.value === '') {
@@ -45,12 +45,13 @@ const search = async () => {
       .then(res => {
         data.result = res
       })
-  // await AnalysisService.getChart(analysisNo.value)
-  //   .then(res => {
-  //     const htmlContainer = document.getElementById('htmlContainer');
-  //     htmlContainer.innerHTML = res;
-  //     executeScripts(htmlContainer);
-  //   })
+
+  await AnalysisService.getStatic(data.echartReq)
+    .then(res => {
+      const htmlContainer = document.getElementById('htmlContainer');
+      htmlContainer.innerHTML = res;
+      executeScripts(htmlContainer);
+    })
 }
 </script>
 

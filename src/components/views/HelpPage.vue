@@ -1,5 +1,5 @@
 <template>
-<h1>TODO: Help</h1>
+  <h1>TODO: Help</h1>
 </template>
 
 <script>
