@@ -1,7 +1,7 @@
 <script setup>
 import {onMounted, reactive} from "vue";
-import FormulaTable from "@/components/formula/FormulaTable.vue";
 import BaseService from "@/service/BaseService";
+import {Plus} from "@element-plus/icons-vue";
 
 const state = reactive({
   data: [],
@@ -46,26 +46,47 @@ const startSearch = (type, content) => {
   list();
 }
 
-// https://blog.csdn.net/luozaiyong/article/details/130101302
-defineExpose({
-  startSearch
-})
+defineExpose({startSearch})
 
+const emits = defineEmits(['listenSelectData'])
+
+const handleSelectAdd = (rowNo, rowData) => {
+  emits('listenSelectData', rowData);
+}
 </script>
 
 <template>
-  <div>
-    <FormulaTable :formula-data="state.data"/>
-    <div style="margin: 10px">
-      <el-pagination
+  <div style="margin: 10px">
+    <el-pagination
         background
         layout="prev, pager, next ,total, sizes"
         :page-sizes="[10, 20, 30, 40]"
         :total="state.total"
         @current-change="handleCurrentChange"
         @size-change="handleSizeChange"
-      />
-    </div>
+    />
+  </div>
+  <div>
+    <el-table
+        :data="state.data"
+        stripe border fit style="width: 100%"
+        highlight-current-row
+    >
+      <el-table-column fixed width="65">
+        <template #default="scope">
+          <el-button
+              size="small"
+              :icon="Plus"
+              @click="handleSelectAdd(scope.$index, scope.row)"/>
+        </template>
+      </el-table-column>
+      <el-table-column fixed prop="id" label="ID" width="100"/>
+      <el-table-column fixed prop="name" label="名称" width="200"/>
+      <el-table-column prop="prescriptionComposition" label="药方" width="500"/>
+      <el-table-column prop="treatmentSymptoms" label="症状" width="800"/>
+      <el-table-column prop="sourceDocument" label="来源" width="500"/>
+      <el-table-column prop="instructions" label="医嘱" width="500"/>
+    </el-table>
   </div>
 </template>
 

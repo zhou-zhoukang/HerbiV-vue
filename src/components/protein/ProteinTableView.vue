@@ -1,7 +1,7 @@
 <script setup>
-import ProteinTable from "@/components/protein/ProteinTable.vue";
 import {onMounted, reactive} from "vue";
 import BaseService from "@/service/BaseService";
+import {Plus} from "@element-plus/icons-vue";
 
 const state = reactive({
   data: [],
@@ -46,25 +46,43 @@ const startSearch = (type, content) => {
   list();
 }
 
-// https://blog.csdn.net/luozaiyong/article/details/130101302
-defineExpose({
-  startSearch
-})
+defineExpose({startSearch})
+
+const emits = defineEmits(['listenSelectData'])
+
+const handleSelectAdd = (rowNo, rowData) => {
+  emits('listenSelectData', rowData);
+}
 </script>
 
 <template>
-  <div>
-    <ProteinTable :protein-data="state.data"/>
-    <div style="margin: 10px">
-      <el-pagination
+  <div style="margin: 10px">
+    <el-pagination
         background
         layout="prev, pager, next ,total, sizes"
         :page-sizes="[10, 20, 30, 40]"
         :total="state.total"
         @current-change="handleCurrentChange"
         @size-change="handleSizeChange"
-      />
-    </div>
+    />
+  </div>
+  <div>
+    <el-table
+        :data="state.data"
+        style="width: 100%"
+    >
+      <el-table-column fixed width="60">
+        <template #default="scope">
+          <el-button
+              size="small"
+              :icon="Plus"
+              @click="handleSelectAdd(scope.$index, scope.row)"/>
+        </template>
+      </el-table-column>
+      <el-table-column fixed prop="id" label="Ensembl ID" width="200"/>
+      <el-table-column prop="proteinName" label="Protein Name" width="1000"/>
+      <el-table-column prop="geneName" label="Gene Name"/>
+    </el-table>
   </div>
 </template>
 

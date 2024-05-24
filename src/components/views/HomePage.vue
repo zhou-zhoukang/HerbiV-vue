@@ -1,21 +1,25 @@
 <script setup>
 import {DataAnalysis, Search} from "@element-plus/icons-vue";
-import {ElMessage, ElMessageBox} from 'element-plus'
+// import {ElMessage, ElMessageBox} from 'element-plus'
 import TCMTableView from "@/components/tcm/TCMTableView.vue";
 import ChemicalTableView from "@/components/chemical/ChemicalTableView.vue";
 import ProteinTableView from "@/components/protein/ProteinTableView.vue";
 import FormulaTableView from "@/components/formula/FormulaTableView.vue";
 import {reactive, toRaw} from "vue";
 import TCMSelectTable from "@/components/tcm/TCMSelectTable.vue";
-import AnalysisService from "@/service/AnalysisService";
-import useClipboard from 'vue-clipboard3'
+// import AnalysisService from "@/service/AnalysisService";
+// import useClipboard from 'vue-clipboard3'
+import FormulaSelectTable from "@/components/formula/FormulaSelectTable.vue";
+import ProteinSelectTable from "@/components/protein/ProteinSelectTable.vue";
 
-const { toClipboard } = useClipboard()
+// const { toClipboard } = useClipboard()
 const selectData = reactive({
   tcms: [],
+  formulas: [],
+  proteins: []
 })
 
-const showSelectData = (tcm) => {
+const showTcmSelectedData = (tcm) => {
   // 去重
   let flag = true;
   selectData.tcms.forEach(item => {
@@ -26,38 +30,79 @@ const showSelectData = (tcm) => {
   if (flag) selectData.tcms.push(toRaw(tcm));
 }
 
-const deleteSelectData = (rowNo) => {
+const showFormulaSelectedData = (tcm) => {
+  // 去重
+  let flag = true;
+  selectData.formulas.forEach(item => {
+    if (item.id === tcm.id) {
+      flag = false;
+    }
+  })
+  if (flag) selectData.formulas.push(toRaw(tcm));
+}
+
+const showPtoteinSelectedData = (tcm) => {
+  // 去重
+  let flag = true;
+  selectData.proteins.forEach(item => {
+    if (item.id === tcm.id) {
+      flag = false;
+    }
+  })
+  if (flag) selectData.proteins.push(toRaw(tcm));
+}
+
+const deleteTcmSelectedData = (rowNo) => {
   selectData.tcms.splice(rowNo, 1);
 }
 
-const startAnalysis = async () => {
-  if (selectData.tcms.length === 0) {
-    ElMessage({type: 'warning', message: '请添加想分析的中药'});
-    return;
-  }
-  const tcmIds = selectData.tcms.map(item => {return item.id});
-  await AnalysisService.fromTcm(tcmIds)
-    .then(res => {
-      if (res.code === 2000) {
-        ElMessageBox.alert(res.analysis_no, '分析号', {
-          // autofocus: false,
-          confirmButtonText: '复制并退出',
-          callback: (action) => {
-            toClipboard(res.analysis_no)
-            ElMessage({
-              type: 'success',
-              message: `分析号已复制，请至结果界面查看`,
-            });
-          },
-        })
-      }
-    });
+const deleteFormulaSelectedData = (rowNo) => {
+  selectData.formulas.splice(rowNo, 1);
 }
 
-// const fromTcm = async () => {
-//
+const deleteProteinSelectedData = (rowNo) => {
+  selectData.proteins.splice(rowNo, 1);
+}
+
+// const startAnalysis = async () => {
+//   if (selectData.tcms.length === 0) {
+//     ElMessage({type: 'warning', message: '请添加想分析的中药'});
+//     return;
+//   }
+//   const tcmIds = selectData.tcms.map(item => {return item.id});
+//   await AnalysisService.fromTcm(tcmIds)
+//     .then(res => {
+//       if (res.code === 2000) {
+//         ElMessageBox.alert(res.analysis_no, '分析号', {
+//           // autofocus: false,
+//           confirmButtonText: '复制并退出',
+//           callback: (action) => {
+//             toClipboard(res.analysis_no)
+//             ElMessage({
+//               type: 'success',
+//               message: `分析号已复制，请至结果界面查看`,
+//             });
+//           },
+//         })
+//       }
+//     });
 // }
 
+const fromTcm = async () => {
+
+}
+const fromFormula = async () => {
+
+}
+const fromTcmProtein = async () => {
+
+}
+const fromFormulaProtein = async () => {
+
+}
+const fromProtein = async () => {
+
+}
 </script>
 
 <template>
@@ -104,14 +149,23 @@ const startAnalysis = async () => {
     </el-input>
   </div>
 
-  <el-button :icon="DataAnalysis" @click="startAnalysis()">FromTcm</el-button>
-  <TCMSelectTable :tcm-data="selectData.tcms" v-show="selectData.tcms.length > 0" v-on:listenDeleteData="deleteSelectData"/>
+  <el-button :icon="DataAnalysis" @click="fromTcm()">FromTcm</el-button>
+  <el-button :icon="DataAnalysis" @click="fromFormula()">FromFormula</el-button>
+  <el-button :icon="DataAnalysis" @click="fromTcmProtein()">FromTcmProtein</el-button>
+  <el-button :icon="DataAnalysis" @click="fromFormulaProtein()">FromFormulaProtein</el-button>
+  <el-button :icon="DataAnalysis" @click="fromProtein()">FromProtein</el-button>
+
+  <div class="selected-table-container">
+    <TCMSelectTable :tcm-data="selectData.tcms" v-show="selectData.tcms.length > 0" v-on:listenDeleteData="deleteTcmSelectedData"/>
+    <FormulaSelectTable :formula-data="selectData.formulas" v-show="selectData.formulas.length > 0" v-on:listenDeleteData="deleteFormulaSelectedData"/>
+    <ProteinSelectTable :protein-data="selectData.proteins" v-show="selectData.proteins.length > 0" v-on:listenDeleteData="deleteProteinSelectedData"/>
+  </div>
 
 <!--  总体数据展示 -->
-  <TCMTableView ref="TCMTable" v-if="searchItem.type === 'tcm'" v-on:listenSelectData="showSelectData"/>
+  <TCMTableView ref="TCMTable" v-if="searchItem.type === 'tcm'" v-on:listenSelectData="showTcmSelectedData"/>
   <ChemicalTableView ref="ChemicalTable" v-if="searchItem.type === 'chemical'"/>
-  <ProteinTableView ref="ProteinTable" v-if="searchItem.type === 'protein'"/>
-  <FormulaTableView ref="FormulaTable" v-if="searchItem.type === 'formula'"/>
+  <ProteinTableView ref="ProteinTable" v-if="searchItem.type === 'protein'" v-on:listenSelectData="showPtoteinSelectedData"/>
+  <FormulaTableView ref="FormulaTable" v-if="searchItem.type === 'formula'" v-on:listenSelectData="showFormulaSelectedData"/>
 </template>
 
 <script>
@@ -231,4 +285,9 @@ export default {
 }
 </script>
 
+<style>
+.selected-table-container {
+  display: flex;
+}
+</style>
 

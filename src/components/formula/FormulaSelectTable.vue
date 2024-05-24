@@ -2,7 +2,7 @@
 import {Minus} from "@element-plus/icons-vue";
 
 defineProps({
-  tcmData: {
+  formulaData: {
     type: Array,
     required: true
   }
@@ -16,28 +16,28 @@ const handleSelectMinus = (rowNo, rowData) => {
 
 <template>
   <div>
-    <h2>Tcm</h2>
+    <h2>Formula</h2>
     <el-table
-      :data="tcmData"
-      style="width: 100%"
-      height="300"
+        :data="formulaData"
+        style="width: 100%"
+        height="300"
     >
       <el-table-column fixed width="60">
         <template #default="scope">
           <el-button
-            size="small"
-            :icon="Minus"
-            @click="handleSelectMinus(scope.$index, scope.row)"/>
+              size="small"
+              :icon="Minus"
+              @click="handleSelectMinus(scope.$index, scope.row)"/>
         </template>
       </el-table-column>
-      <el-table-column fixed prop="id" label="HVMID" width="100"/>
-      <el-table-column fixed prop="cnName" label="中文名" width="150"/>
+      <el-table-column fixed prop="id" label="HVPID" width="100"/>
+      <el-table-column fixed prop="name" label="名称" width="150"/>
     </el-table>
   </div>
 </template>
 
 <script>
 export default {
-  name: "TCMSelectTable"
+  name: "FormulaSelectTable"
 }
 </script>
