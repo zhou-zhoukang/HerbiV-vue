@@ -4,6 +4,7 @@ import HomePage from "@/components/views/HomePage.vue"
 import ResultPage from "@/components/views/ResultPage.vue";
 import HelpPage from "@/components/views/HelpPage.vue";
 import DownloadPage from "@/components/views/DownloadPage.vue";
+import ContactPage from "@/components/views/ContactPage.vue";
 
 const routes = [
     {
@@ -14,7 +15,8 @@ const routes = [
             { path: 'home', component: HomePage },
             { path: 'result', component: ResultPage },
             { path: 'download', component: DownloadPage },
-            { path: 'help', component: HelpPage}
+            { path: 'help', component: HelpPage},
+            { path: 'contact', component: ContactPage}
         ]
     },
 ]

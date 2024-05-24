@@ -62,7 +62,7 @@ const toggleDark = useToggle(isDark)
 </style>
 
 <script>
-import {DataAnalysis, House, Download, HelpFilled} from "@element-plus/icons-vue";
+import {DataAnalysis, House, Download, HelpFilled, Service} from "@element-plus/icons-vue";
 
 export default {
   data() {
@@ -92,6 +92,12 @@ export default {
           name: "help",
           label: "帮助",
           icon: HelpFilled
+        },
+        {
+          path: "/contact",
+          name: "contact",
+          label: "联系",
+          icon: Service
         }
       ]
     };
