@@ -57,11 +57,20 @@ const handleSelectAdd = (rowNo, rowData) => {
 </script>
 
 <template>
+  <div style="margin: 10px">
+    <el-pagination
+        background
+        layout="prev, pager, next ,total, sizes"
+        :page-sizes="[10, 20, 30, 40]"
+        :total="state.total"
+        @current-change="handleCurrentChange"
+        @size-change="handleSizeChange"
+    />
+  </div>
   <div>
     <el-table
       :data="state.data"
       style="width: 100%"
-      height="400"
     >
       <el-table-column fixed width="60">
         <template #default="scope">
@@ -72,7 +81,7 @@ const handleSelectAdd = (rowNo, rowData) => {
         </template>
       </el-table-column>
       <el-table-column fixed prop="id" label="HVMID" width="100"/>
-      <el-table-column fixed prop="cnName" label="中文名" width="150"/>
+      <el-table-column fixed prop="cnName" label="中文名" width="140"/>
       <el-table-column prop="pinyinName" label="拼音名" width="210" :show-overflow-tooltip="true"/>
       <el-table-column prop="enName" label="英文名" width="250" :show-overflow-tooltip="true"/>
       <el-table-column prop="latinName" label="拉丁名" width="300" :show-overflow-tooltip="true"/>
@@ -80,16 +89,7 @@ const handleSelectAdd = (rowNo, rowData) => {
       <el-table-column prop="function" label="功效" width="1000" :show-overflow-tooltip="true"/>
     </el-table>
   </div>
-  <div style="margin: 10px">
-    <el-pagination
-      background
-      layout="prev, pager, next ,total, sizes"
-      :page-sizes="[10, 20, 30, 40]"
-      :total="state.total"
-      @current-change="handleCurrentChange"
-      @size-change="handleSizeChange"
-    />
-  </div>
+
 </template>
 
 <script>

@@ -30,8 +30,6 @@ const deleteSelectData = (rowNo) => {
   selectData.tcms.splice(rowNo, 1);
 }
 
-
-
 const startAnalysis = async () => {
   if (selectData.tcms.length === 0) {
     ElMessage({type: 'warning', message: '请添加想分析的中药'});
@@ -55,6 +53,11 @@ const startAnalysis = async () => {
       }
     });
 }
+
+// const fromTcm = async () => {
+//
+// }
+
 </script>
 
 <template>
@@ -101,13 +104,14 @@ const startAnalysis = async () => {
     </el-input>
   </div>
 
+  <el-button :icon="DataAnalysis" @click="startAnalysis()">FromTcm</el-button>
+  <TCMSelectTable :tcm-data="selectData.tcms" v-show="selectData.tcms.length > 0" v-on:listenDeleteData="deleteSelectData"/>
+
+<!--  总体数据展示 -->
   <TCMTableView ref="TCMTable" v-if="searchItem.type === 'tcm'" v-on:listenSelectData="showSelectData"/>
   <ChemicalTableView ref="ChemicalTable" v-if="searchItem.type === 'chemical'"/>
   <ProteinTableView ref="ProteinTable" v-if="searchItem.type === 'protein'"/>
   <FormulaTableView ref="FormulaTable" v-if="searchItem.type === 'formula'"/>
-
-  <el-button :icon="DataAnalysis" @click="startAnalysis()">分析</el-button>
-  <TCMSelectTable :tcm-data="selectData.tcms" v-show="selectData.tcms.length > 0" v-on:listenDeleteData="deleteSelectData"/>
 </template>
 
 <script>

@@ -1,11 +1,63 @@
 import axios from "axios";
 
 /**
- * @param tcmIds should be a list
+ * @param tcmIds should be a list, e.g. ['HVM0367', 'HVM1695']
+ * @param score
  * */
-const fromTcm = async (tcmIds) => {
+const fromTcm = async (tcmIds, score) => {
   const res = await axios.post("/herbiv/from_tcm", {
     "tcms": tcmIds,
+    "score": score
+  });
+  try {
+    return res.data;
+  } catch (error) {
+    return error;
+  }
+}
+
+const fromFormula = async (formulaIds, score) => {
+  const res = await axios.post("/herbiv/from_formula", {
+    "formulas": formulaIds,
+    "score": score
+  });
+  try {
+    return res.data;
+  } catch (error) {
+    return error;
+  }
+}
+
+const fromTcmProtein = async (tcmIds, proteinIds, score) => {
+  const res = await axios.post("/herbiv/from_tcm_protein", {
+    "tcms": tcmIds,
+    "proteins": proteinIds,
+    "score": score
+  });
+  try {
+    return res.data;
+  } catch (error) {
+    return error;
+  }
+}
+
+const fromFormulaProtein = async (formulaIds, proteinIds, score) => {
+  const res = await axios.post("/herbiv/from_formula_protein", {
+    "formulas": formulaIds,
+    "proteins": proteinIds,
+    "score": score
+  });
+  try {
+    return res.data;
+  } catch (error) {
+    return error;
+  }
+}
+
+const fromProtein = async (proteinIds, score) => {
+  const res = await axios.post("/herbiv/from_protein", {
+    "proteins": proteinIds,
+    "score": score
   });
   try {
     return res.data;
@@ -25,10 +77,8 @@ const getResult = async (analysisNo) => {
   }
 }
 
-const getChart = async (analysisNo) => {
-  const formData = new FormData()
-  formData.append('analysis_no', analysisNo)
-  const res = await axios.post("/herbiv/get_chart", formData);
+const getStatic = async (staticPath) => {
+  const res = await axios.get(staticPath);
   try {
     return res.data;
   } catch (error) {
@@ -38,8 +88,12 @@ const getChart = async (analysisNo) => {
 
 const AnalysisService = {
   fromTcm: fromTcm,
+  fromFormula: fromFormula,
+  fromTcmProtein: fromTcmProtein,
+  fromFormulaProtein: fromFormulaProtein,
+  fromProtein: fromProtein,
   getResult: getResult,
-  getChart: getChart
+  getStatic: getStatic
 };
 
 export default AnalysisService;

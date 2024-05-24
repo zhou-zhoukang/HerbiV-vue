@@ -11,7 +11,6 @@ defineProps({
 	<div>
 		<el-table :data="chemicalData"
 							stripe border fit style="width: 100%"
-							height="400"
 							highlight-current-row
 		>
 			<el-table-column fixed prop="id" label="HVCID" width="100"/>
