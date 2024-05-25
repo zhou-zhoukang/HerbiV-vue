@@ -8,6 +8,15 @@ import 'element-plus/theme-chalk/dark/css-vars.css'
 import router from '@/router/index.js'
 import axios from "axios";
 axios.defaults.baseURL=`${process.env.VUE_APP_API_URL}`;
+// axios 可以自定义拦截某些请求
+// axios.interceptors.response.use(res => {
+//   if (res.status === 404) {
+//     console.log("拦截 404 错误")
+//     return Promise.reject(res)
+//   } else {
+//     return Promise.resolve(res);
+//   }
+// })
 
 const app = createApp(App)
 app.use(ElementPlus)

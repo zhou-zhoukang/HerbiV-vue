@@ -9,9 +9,11 @@ defineProps({
 
 <template>
 	<div>
-		<el-table :data="chemicalData"
-							stripe border fit style="width: 100%"
-							highlight-current-row
+		<el-table
+        :data="chemicalData"
+        stripe border fit
+        style="width: 100%"
+        highlight-current-row
 		>
 			<el-table-column fixed prop="id" label="HVCID" width="100"/>
 			<el-table-column fixed prop="name" label="名称" width="400"/>

@@ -71,9 +71,10 @@ const handleSelectAdd = (rowNo, rowData) => {
   <div>
     <el-table
       :data="state.data"
+      stripe border fit
       style="width: 100%"
     >
-      <el-table-column fixed width="60">
+      <el-table-column fixed width="65">
         <template #default="scope">
           <el-button
             size="small"
@@ -81,13 +82,25 @@ const handleSelectAdd = (rowNo, rowData) => {
             @click="handleSelectAdd(scope.$index, scope.row)"/>
         </template>
       </el-table-column>
-      <el-table-column fixed prop="id" label="HVMID" width="100"/>
-      <el-table-column fixed prop="cnName" label="中文名" width="140"/>
-      <el-table-column prop="pinyinName" label="拼音名" width="210" :show-overflow-tooltip="true"/>
-      <el-table-column prop="enName" label="英文名" width="250" :show-overflow-tooltip="true"/>
-      <el-table-column prop="latinName" label="拉丁名" width="300" :show-overflow-tooltip="true"/>
-      <el-table-column prop="properties" label="properties" width="200" :show-overflow-tooltip="true"/>
-      <el-table-column prop="function" label="功效" width="1000" :show-overflow-tooltip="true"/>
+      <el-table-column fixed prop="id" label="HVMID"        width="100"/>
+      <el-table-column fixed prop="cnName" label="中文名"    width="140"/>
+      <el-table-column prop="pinyinName" label="拼音名"      width="210"  show-overflow-tooltip/>
+      <el-table-column prop="enName" label="英文名"          width="250"  show-overflow-tooltip/>
+      <el-table-column prop="latinName" label="拉丁名"       width="300"  show-overflow-tooltip/>
+      <el-table-column prop="properties" label="properties" width="200"  show-overflow-tooltip/>
+      <el-table-column prop="meridians" label="Meridians"   width="200"  show-overflow-tooltip/>
+      <el-table-column prop="usepart" label="UsePart"       width="200"  show-overflow-tooltip/>
+      <el-table-column prop="function" label="功效"          width="1000" show-overflow-tooltip/>
+      <el-table-column prop="indication" label="Indication" width="1000" show-overflow-tooltip/>
+      <el-table-column prop="toxicity" label="Toxicity"     width="200"  show-overflow-tooltip/>
+      <el-table-column prop="clinicalManifestations" label="Clinical_manifestations" width="300" show-overflow-tooltip/>
+      <el-table-column prop="therapeuticEnClass"     label="Therapeutic_en_class"    width="300" show-overflow-tooltip/>
+      <el-table-column prop="therapeuticCnClass"     label="Therapeutic_cn_class"    width="300" show-overflow-tooltip/>
+      <el-table-column prop="herbId" label="HERB_id"       width="200" show-overflow-tooltip/>
+      <el-table-column prop="tcmidId" label="TCMID_id"     width="200" show-overflow-tooltip/>
+      <el-table-column prop="tcmIdId" label="TCM_ID_id"    width="200" show-overflow-tooltip/>
+      <el-table-column prop="symmapId" label="SymMap_id"   width="200" show-overflow-tooltip/>
+      <el-table-column prop="tcmspId" label="TCMSP_id"     width="200" show-overflow-tooltip/>
     </el-table>
   </div>
 

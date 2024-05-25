@@ -136,7 +136,7 @@ const fromProtein = async () => {
     return;
   }
   const proteinIds = selectData.proteins.map(item => {return item.id});
-  await AnalysisService.fromProtein(proteinIds, proteinIds, 990)
+  await AnalysisService.fromProtein(proteinIds, 500)
       .then(fromCallback)
 }
 </script>
@@ -185,11 +185,14 @@ const fromProtein = async () => {
     </el-input>
   </div>
 
-  <el-button :icon="DataAnalysis" @click="fromTcm()">FromTcm</el-button>
-  <el-button :icon="DataAnalysis" @click="fromFormula()">FromFormula</el-button>
-  <el-button :icon="DataAnalysis" @click="fromTcmProtein()">FromTcmProtein</el-button>
-  <el-button :icon="DataAnalysis" @click="fromFormulaProtein()">FromFormulaProtein</el-button>
-  <el-button :icon="DataAnalysis" @click="fromProtein()">FromProtein</el-button>
+  <div>
+    <h1>功能选择</h1>
+    <el-button :icon="DataAnalysis" @click="fromTcm()">FromTcm</el-button>
+    <el-button :icon="DataAnalysis" @click="fromFormula()">FromFormula</el-button>
+    <el-button :icon="DataAnalysis" @click="fromTcmProtein()">FromTcmProtein</el-button>
+    <el-button :icon="DataAnalysis" @click="fromFormulaProtein()">FromFormulaProtein</el-button>
+    <el-button :icon="DataAnalysis" @click="fromProtein()">FromProtein</el-button>
+  </div>
 
   <div class="selected-table-container">
     <TCMSelectTable :tcm-data="selectData.tcms" v-show="selectData.tcms.length > 0" v-on:listenDeleteData="deleteTcmSelectedData"/>
@@ -198,6 +201,7 @@ const fromProtein = async () => {
   </div>
 
 <!--  总体数据展示 -->
+  <h1>总体数据展示</h1>
   <TCMTableView ref="TCMTable" v-if="searchItem.type === 'tcm'" v-on:listenSelectData="showTcmSelectedData"/>
   <ChemicalTableView ref="ChemicalTable" v-if="searchItem.type === 'chemical'"/>
   <ProteinTableView ref="ProteinTable" v-if="searchItem.type === 'protein'" v-on:listenSelectData="showProteinSelectedData"/>

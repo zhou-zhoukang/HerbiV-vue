@@ -30,10 +30,12 @@ const search = async () => {
     ElMessage({type: 'warning', message: '请输入分析号'});
     return;
   }
+  let flag = true
   await AnalysisService.getResult(analysisNo.value)
     .then(res => {
       if (res.code !== 2000) {
         ElMessage({type: 'warning', message: res.msg});
+        flag = false
       } else {
         data.resultReq = res.resultReq;
         data.echartReq = res.echartReq;
@@ -41,16 +43,21 @@ const search = async () => {
       }
     });
 
+  if (!flag) return
   await AnalysisService.getStatic(data.resultReq)
       .then(res => {
         data.result = res
       })
 
+  if (!flag) return
   await AnalysisService.getStatic(data.echartReq)
     .then(res => {
-      const htmlContainer = document.getElementById('htmlContainer');
-      htmlContainer.innerHTML = res;
-      executeScripts(htmlContainer);
+      // 静态资源有可能不存在
+      if (res !== "") {
+        const htmlContainer = document.getElementById('htmlContainer');
+        htmlContainer.innerHTML = res;
+        executeScripts(htmlContainer);
+      }
     })
 }
 </script>

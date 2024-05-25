@@ -69,8 +69,8 @@ const handleSelectAdd = (rowNo, rowData) => {
   <div>
     <el-table
         :data="state.data"
-        stripe border fit style="width: 100%"
-        highlight-current-row
+        stripe border fit
+        style="width: 100%"
     >
       <el-table-column fixed width="65">
         <template #default="scope">

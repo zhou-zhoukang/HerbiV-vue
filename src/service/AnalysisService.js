@@ -78,6 +78,9 @@ const getResult = async (analysisNo) => {
 }
 
 const getStatic = async (staticPath) => {
+  if (staticPath === "") {
+    return ""
+  }
   const res = await axios.get(`/${staticPath}`);
   try {
     return res.data;
