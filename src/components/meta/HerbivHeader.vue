@@ -12,11 +12,10 @@ const toggleDark = useToggle(isDark)
   <div class="header">
     <el-menu
       :default-active="activeIndex"
-      class="el-menu"
+      class="el-menu-first-container"
       mode="horizontal"
       @select="handleSelect()"
     >
-
       <el-menu-item
         @click="clickMenu(item)"
         v-for="item in menuData" :key="item.name"
@@ -28,7 +27,6 @@ const toggleDark = useToggle(isDark)
 
       <el-sub-menu
         index="2"
-
       >
         <template #title><el-icon><Setting /></el-icon> 设置</template>
         <el-menu-item
@@ -43,7 +41,7 @@ const toggleDark = useToggle(isDark)
 </template>
 
 <style>
-.el-menu {
+.el-menu-first-container {
   justify-content: center;
   background-color: var(--el-color-primary-light-7);
 }

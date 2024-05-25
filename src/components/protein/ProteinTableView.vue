@@ -72,7 +72,7 @@ const handleSelectAdd = (rowNo, rowData) => {
         stripe border fit
         style="width: 100%"
     >
-      <el-table-column fixed width="60">
+      <el-table-column fixed width="68">
         <template #default="scope">
           <el-button
               size="small"

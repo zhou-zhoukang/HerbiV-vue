@@ -60,6 +60,10 @@ const search = async () => {
       }
     })
 }
+
+const download = (staticPath) => {
+  window.open(`${process.env.VUE_APP_API_URL}/${staticPath}`)
+}
 </script>
 
 <template>
@@ -73,6 +77,27 @@ const search = async () => {
         <el-button :icon="Search" @click="search"/>
       </template>
     </el-input>
+  </div>
+
+  <div class="result-download-container">
+    <h1 v-if="data.resultReq.length > 0">结果下载</h1>
+    <el-button
+        v-if="data.resultReq.length > 0"
+        @click="download(data.resultReq)">
+      Results.json
+    </el-button>
+
+    <el-button
+        v-if="data.echartReq.length > 0"
+        @click="download(data.echartReq)">
+      Graph.html (echart)
+    </el-button>
+
+    <el-button
+        v-if="data.cytoReq.length > 0"
+        @click="download(data.cytoReq)">
+      Network.csv (for cytoscape)
+    </el-button>
   </div>
 
   <TCMResultTable :tcm-data="data.result.tcm" v-if="data.result !== ''"/>
