@@ -9,6 +9,7 @@ defineProps({
 
 <template>
   <div>
+    <h1>TCM Chemical Link</h1>
     <el-table
       :data="tcmChemData"
       style="width: 100%"

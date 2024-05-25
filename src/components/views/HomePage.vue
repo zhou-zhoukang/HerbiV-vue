@@ -86,7 +86,7 @@ const fromTcm = async () => {
     return;
   }
   const tcmIds = selectData.tcms.map(item => {return item.id});
-  await AnalysisService.fromTcm(tcmIds, 990)
+  await AnalysisService.fromTcm(tcmIds, 100)
     .then(fromCallback)
 }
 

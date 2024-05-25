@@ -9,6 +9,7 @@ defineProps({
 
 <template>
   <div>
+    <h1>Chemical</h1>
     <el-table
       :data="chemData"
       max-height="300"

@@ -9,6 +9,7 @@ defineProps({
 
 <template>
   <div>
+    <h1>Chemical Protein Link</h1>
     <el-table
       :data="chemProteinData"
       max-height="300px"
@@ -19,3 +20,9 @@ defineProps({
     </el-table>
   </div>
 </template>
+
+<script>
+export default {
+  name: "ChemicalProteinLinkResultTable"
+}
+</script>

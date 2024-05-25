@@ -9,6 +9,7 @@ defineProps({
 
 <template>
   <div>
+    <h1>TCM</h1>
     <el-table
       :data="tcmData"
       style="width: 100%"
