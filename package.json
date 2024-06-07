@@ -1,6 +1,11 @@
 {
   "name": "herbiv-vue",
-  "version": "1.1.0",
+  "version": "1.1.1",
+  "description": "HerbiV 前端",
+  "homepage": "https://github.com/zhou-zhoukang/HerbiV-vue",
+  "bugs": "https://github.com/zhou-zhoukang/HerbiV-vue/issues",
+  "repository": "https://github.com/zhou-zhoukang/HerbiV-vue",
+  "author": { "name": "Zhou Hang", "email": "hangzhou@njfu.edu.cn", "url": "https://zhouzhoukang.top" },
   "private": true,
   "scripts": {
     "lint": "vue-cli-service lint",
