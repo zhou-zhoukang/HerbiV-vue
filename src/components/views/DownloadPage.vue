@@ -6,43 +6,43 @@ const downloadData = [
   {
     data: 'TCM',
     description: '中药信息',
-    statistic: '',
+    statistic: '4666',
     name: 'HerbiV_tcm.csv'
   },
   {
     data: 'Formula',
     description: '复方信息',
-    statistic: '',
+    statistic: '6185',
     name: 'HerbiV_formula.csv'
   },
   {
     data: 'Chemical',
     description: '化合物信息',
-    statistic: '',
+    statistic: '13098',
     name: 'HerbiV_chemicals.csv'
   },
   {
     data: 'Protein',
     description: '靶点信息',
-    statistic: '',
+    statistic: '14184',
     name: 'HerbiV_proteins.csv'
   },
   {
     data: 'Chemical Protein Links',
     description: '化合物/靶点',
-    statistic: '',
+    statistic: '450810',
     name: 'HerbiV_chemical_protein_links.csv'
   },
   {
     data: 'Formula Tcm Links',
     description: '复方/中药',
-    statistic: '',
+    statistic: '28313',
     name: 'HerbiV_formula_tcm_links.csv'
   },
   {
     data: 'Tcm Chemical Links',
     description: '中药/化合物',
-    statistic: '',
+    statistic: '60575',
     name: 'HerbiV_tcm_chemical_links.csv'
   },
 ]
@@ -62,13 +62,21 @@ const handleClick = (tab, event) => {
   <div class="download-container">
     <h1>Download Files</h1>
     <el-table :data="downloadData" stripe style="width: 100%">
-      <el-table-column prop="data" label="Data" width="200" />
-      <el-table-column prop="description" label="Description" width="180">
+      <el-table-column prop="data" label="Data">
+        <template #default="scope">
+          <b>{{ scope.row.data }}</b>
+        </template>
+      </el-table-column>
+      <el-table-column prop="description" label="Description" >
         <template #default="scope">
           <el-tag>{{ scope.row.description }}</el-tag>
         </template>
       </el-table-column>
-      <el-table-column prop="statistic" label="Statistic" />
+      <el-table-column prop="statistic" label="Statistic">
+        <template #default="scope">
+          <li><b>{{ scope.row.statistic }}</b></li>
+        </template>
+      </el-table-column>
       <el-table-column label="Download" >
         <template #default="scope">
           <el-button
@@ -89,8 +97,9 @@ const handleClick = (tab, event) => {
         @tab-click="handleClick"
     >
       <el-tab-pane label="TCM" name="TCM">
-        <p>HVMID: xxx</p>
-        <p>cnName: xxx</p>
+        <p>HVMID: id</p>
+        <p>cnName: 中文名</p>
+        <p>pinyin_name: 拼音</p>
       </el-tab-pane>
       <el-tab-pane label="Formula" name="Formula">
         <p>id: xxx</p>
@@ -122,5 +131,9 @@ export default {
   color: #6b778c;
   font-size: 32px;
   font-weight: 600;
+}
+
+li::marker {
+  color: green;
 }
 </style>

@@ -14,6 +14,7 @@ const data = reactive({
   resultReq: '',
   echartReq: '',
   cytoReq: '',
+  cytoTypeReq: '',
   result: ''
 })
 
@@ -40,6 +41,7 @@ const search = async () => {
         data.resultReq = res.resultReq;
         data.echartReq = res.echartReq;
         data.cytoReq = res.cytoReq;
+        data.cytoTypeReq = res.cytoTypeReq
       }
     });
 
@@ -84,19 +86,25 @@ const download = (staticPath) => {
     <el-button
         v-if="data.resultReq.length > 0"
         @click="download(data.resultReq)">
-      Results.json
+      Results
     </el-button>
 
     <el-button
         v-if="data.echartReq.length > 0"
         @click="download(data.echartReq)">
-      Graph.html (echart)
+      EChart (html)
     </el-button>
 
     <el-button
         v-if="data.cytoReq.length > 0"
         @click="download(data.cytoReq)">
-      Network.csv (for cytoscape)
+      Network (CSV For Cytoscape)
+    </el-button>
+
+    <el-button
+        v-if="data.cytoReq.length > 0"
+        @click="download(data.cytoTypeReq)">
+      Type (CSV For Cytoscape)
     </el-button>
   </div>
 

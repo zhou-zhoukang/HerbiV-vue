@@ -20,6 +20,9 @@ const selectData = reactive({
 })
 
 const showTcmSelectedData = (tcm) => {
+  // 控制最大分析数量
+  if (selectData.tcms.length >= 10)
+    return
   // 去重
   let flag = true;
   selectData.tcms.forEach(item => {
@@ -31,6 +34,9 @@ const showTcmSelectedData = (tcm) => {
 }
 
 const showFormulaSelectedData = (formula) => {
+  // 控制最大分析数量
+  if (selectData.formulas.length >= 10)
+    return
   // 去重
   let flag = true;
   selectData.formulas.forEach(item => {
@@ -42,6 +48,9 @@ const showFormulaSelectedData = (formula) => {
 }
 
 const showProteinSelectedData = (protein) => {
+  // 控制最大分析数量
+  if (selectData.proteins.length >= 10)
+    return
   // 去重
   let flag = true;
   selectData.proteins.forEach(item => {
