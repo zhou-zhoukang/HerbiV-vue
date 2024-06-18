@@ -1,0 +1,35 @@
+name: Build and Deploy HerbiV-vue
+on:
+  push:
+    branches:
+      - master
+jobs:
+  build-and-deploy:
+    # 运行环境
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@master
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18
+      - name: Install dependencies
+        run: yarn install
+      - name: Install vue-cli-service
+        run: npm install -g @vue/cli-service
+      - name: Install @vue/compiler-sfc
+        run: npm install -g @vue/compiler-sfc
+      - name: yarn run publish
+        run: yarn run publish
+      - name: Deploy HerbiV
+        uses: cross-the-world/scp-pipeline@master
+        env:
+          WELCOME: "ssh scp ssh pipelines"
+          LASTSSH: "拷贝完成"
+        with:
+          host: ${{ secrets.HOST }}
+          user: ${{ secrets.NAME }}
+          pass: ${{ secrets.PASS }}
+          connect_timeout: 10s
+          local: './dist/*'
+          remote: /www/herbiv-vue/
