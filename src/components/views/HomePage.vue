@@ -19,6 +19,8 @@ const selectData = reactive({
   proteins: []
 })
 
+const score = ref(500)
+
 const showTcmSelectedData = (tcm) => {
   // 控制最大分析数量
   if (selectData.tcms.length >= 10)
@@ -77,7 +79,7 @@ const fromCallback = res => {
   if (res.code === 2000) {
     ElMessageBox.alert(res.msg, '分析号', {
       // autofocus: false,
-      confirmButtonText: '复制并退出',
+      confirmButtonText: '复制分析号',
       callback: (action) => {
         toClipboard(res.msg)
         ElMessage({
@@ -95,7 +97,7 @@ const fromTcm = async () => {
     return;
   }
   const tcmIds = selectData.tcms.map(item => {return item.id});
-  await AnalysisService.fromTcm(tcmIds, 100)
+  await AnalysisService.fromTcm(tcmIds, score.value)
     .then(fromCallback)
 }
 
@@ -105,7 +107,7 @@ const fromFormula = async () => {
     return;
   }
   const formulaIds = selectData.formulas.map(item => {return item.id});
-  await AnalysisService.fromFormula(formulaIds, 990)
+  await AnalysisService.fromFormula(formulaIds, score.value)
       .then(fromCallback)
 }
 
@@ -120,7 +122,7 @@ const fromTcmProtein = async () => {
   }
   const tcmIds = selectData.tcms.map(item => {return item.id});
   const proteinIds = selectData.proteins.map(item => {return item.id});
-  await AnalysisService.fromTcmProtein(tcmIds, proteinIds, 990)
+  await AnalysisService.fromTcmProtein(tcmIds, proteinIds, score.value)
       .then(fromCallback)
 }
 
@@ -135,7 +137,7 @@ const fromFormulaProtein = async () => {
   }
   const formulaIds = selectData.formulas.map(item => {return item.id});
   const proteinIds = selectData.proteins.map(item => {return item.id});
-  await AnalysisService.fromFormulaProtein(formulaIds, proteinIds, 990)
+  await AnalysisService.fromFormulaProtein(formulaIds, proteinIds, score.value)
       .then(fromCallback)
 }
 
@@ -145,7 +147,7 @@ const fromProtein = async () => {
     return;
   }
   const proteinIds = selectData.proteins.map(item => {return item.id});
-  await AnalysisService.fromProtein(proteinIds, 500)
+  await AnalysisService.fromProtein(proteinIds, score.value)
       .then(fromCallback)
 }
 </script>
@@ -196,11 +198,12 @@ const fromProtein = async () => {
 
   <div>
     <h1>功能选择</h1>
-    <el-button :icon="DataAnalysis" @click="fromTcm()">FromTcm</el-button>
-    <el-button :icon="DataAnalysis" @click="fromFormula()">FromFormula</el-button>
-    <el-button :icon="DataAnalysis" @click="fromTcmProtein()">FromTcmProtein</el-button>
-    <el-button :icon="DataAnalysis" @click="fromFormulaProtein()">FromFormulaProtein</el-button>
-    <el-button :icon="DataAnalysis" @click="fromProtein()">FromProtein</el-button>
+    <el-button :icon="DataAnalysis" @click="fromTcm()">From Tcm</el-button>
+    <el-button :icon="DataAnalysis" @click="fromFormula()">From Formula</el-button>
+    <el-button :icon="DataAnalysis" @click="fromTcmProtein()">From Tcm Protein</el-button>
+    <el-button :icon="DataAnalysis" @click="fromFormulaProtein()">From Formula Protein</el-button>
+    <el-button :icon="DataAnalysis" @click="fromProtein()">From Protein</el-button>
+    <el-input-number v-model="score" :min="100" :max="1000" label="Score" style="margin-left: 15px"/>
   </div>
 
   <div class="selected-table-container">

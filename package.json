@@ -5,7 +5,11 @@
   "homepage": "https://github.com/zhou-zhoukang/HerbiV-vue",
   "bugs": "https://github.com/zhou-zhoukang/HerbiV-vue/issues",
   "repository": "https://github.com/zhou-zhoukang/HerbiV-vue",
-  "author": { "name": "Zhou Hang", "email": "hangzhou@njfu.edu.cn", "url": "https://zhouzhoukang.top" },
+  "author": {
+    "name": "Zhou Hang",
+    "email": "hangzhou@njfu.edu.cn",
+    "url": "https://zhouzhoukang.top"
+  },
   "private": true,
   "scripts": {
     "lint": "vue-cli-service lint",
@@ -19,7 +23,7 @@
     "@element-plus/icons-vue": "^2.3.1",
     "axios": "1.6.8",
     "core-js": "^3.8.3",
-    "echarts": "^5.4.2",
+    "echarts": "^5.5.1",
     "element-plus": "^2.3.5",
     "vue": "^3.2.26",
     "vue-clipboard3": "^2.0.0",

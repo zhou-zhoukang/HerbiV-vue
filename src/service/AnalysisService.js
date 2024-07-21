@@ -89,6 +89,15 @@ const getStatic = async (staticPath) => {
   }
 }
 
+const getStatistic = async () => {
+  const res = await axios.get(`/api/herbiv/get_statistic`);
+  try {
+    return res.data;
+  } catch (error) {
+    return error;
+  }
+}
+
 const AnalysisService = {
   fromTcm: fromTcm,
   fromFormula: fromFormula,
@@ -96,7 +105,8 @@ const AnalysisService = {
   fromFormulaProtein: fromFormulaProtein,
   fromProtein: fromProtein,
   getResult: getResult,
-  getStatic: getStatic
+  getStatic: getStatic,
+  getStatistic: getStatistic
 };
 
 export default AnalysisService;
