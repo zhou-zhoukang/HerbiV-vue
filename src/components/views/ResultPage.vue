@@ -82,27 +82,27 @@ const download = (staticPath) => {
   </div>
 
   <div class="result-download-container">
-    <h1 v-if="data.resultReq.length > 0">结果下载</h1>
+    <h1 v-if="data.resultReq.length > 5">结果下载</h1>
     <el-button
-        v-if="data.resultReq.length > 0"
+        v-if="data.resultReq.length > 5"
         @click="download(data.resultReq)">
       Results
     </el-button>
 
     <el-button
-        v-if="data.echartReq.length > 0"
+        v-if="data.echartReq.length > 5"
         @click="download(data.echartReq)">
       EChart (html)
     </el-button>
 
     <el-button
-        v-if="data.cytoReq.length > 0"
+        v-if="data.cytoReq.length > 5"
         @click="download(data.cytoReq)">
       Network (CSV For Cytoscape)
     </el-button>
 
     <el-button
-        v-if="data.cytoReq.length > 0"
+        v-if="data.cytoReq.length > 5"
         @click="download(data.cytoTypeReq)">
       Type (CSV For Cytoscape)
     </el-button>

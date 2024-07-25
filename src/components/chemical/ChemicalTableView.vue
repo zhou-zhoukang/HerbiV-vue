@@ -53,7 +53,7 @@ defineExpose({
 </script>
 
 <template>
-  <div style="margin: 10px">
+  <div style="margin: 10px; display: flex; justify-content: center;">
     <el-pagination
         background
         layout="prev, pager, next ,total, sizes"
