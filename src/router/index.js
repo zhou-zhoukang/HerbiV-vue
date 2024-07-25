@@ -12,7 +12,7 @@ const routes = [
         component: MainPage,
         redirect: '/home',
         children: [
-            { path: 'home', component: HomePage },
+            { path: 'home', meta:{keepAlive: true}, component: HomePage },
             { path: 'result', component: ResultPage },
             { path: 'download', component: DownloadPage },
             { path: 'help', component: HelpPage},
