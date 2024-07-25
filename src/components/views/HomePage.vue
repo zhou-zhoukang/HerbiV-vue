@@ -196,28 +196,48 @@ const fromProtein = async () => {
     </el-input>
   </div>
 
-  <div>
-    <h1>功能选择</h1>
-    <el-button :icon="DataAnalysis" @click="fromTcm()">From Tcm</el-button>
-    <el-button :icon="DataAnalysis" @click="fromFormula()">From Formula</el-button>
-    <el-button :icon="DataAnalysis" @click="fromTcmProtein()">From Tcm Protein</el-button>
-    <el-button :icon="DataAnalysis" @click="fromFormulaProtein()">From Formula Protein</el-button>
-    <el-button :icon="DataAnalysis" @click="fromProtein()">From Protein</el-button>
-    <el-input-number v-model="score" :min="100" :max="1000" label="Score" style="margin-left: 15px"/>
-  </div>
-
-  <div class="selected-table-container">
-    <TCMSelectTable :tcm-data="selectData.tcms" v-show="selectData.tcms.length > 0" v-on:listenDeleteData="deleteTcmSelectedData"/>
-    <FormulaSelectTable :formula-data="selectData.formulas" v-show="selectData.formulas.length > 0" v-on:listenDeleteData="deleteFormulaSelectedData"/>
-    <ProteinSelectTable :protein-data="selectData.proteins" v-show="selectData.proteins.length > 0" v-on:listenDeleteData="deleteProteinSelectedData"/>
-  </div>
-
-<!--  总体数据展示 -->
-  <h1>总体数据展示</h1>
+  <!--  总体数据展示 -->
+  <h1>数据展示</h1>
   <TCMTableView ref="TCMTable" v-if="searchItem.type === 'tcm'" v-on:listenSelectData="showTcmSelectedData"/>
   <ChemicalTableView ref="ChemicalTable" v-if="searchItem.type === 'chemical'"/>
   <ProteinTableView ref="ProteinTable" v-if="searchItem.type === 'protein'" v-on:listenSelectData="showProteinSelectedData"/>
   <FormulaTableView ref="FormulaTable" v-if="searchItem.type === 'formula'" v-on:listenSelectData="showFormulaSelectedData"/>
+
+  <div>
+    <h1>选择分析方法</h1>
+    <div class="function_choose_container">
+      <el-button :icon="DataAnalysis" @click="fromTcm()">From Tcm</el-button>
+      <el-button :icon="DataAnalysis" @click="fromFormula()">From Formula</el-button>
+      <el-button :icon="DataAnalysis" @click="fromTcmProtein()">From Tcm Protein</el-button>
+      <el-button :icon="DataAnalysis" @click="fromFormulaProtein()">From Formula Protein</el-button>
+      <el-button :icon="DataAnalysis" @click="fromProtein()">From Protein</el-button>
+      <div class="score_chooser_container">
+<!--        <span>Score</span>-->
+        <el-input-number v-model="score" :min="100" :max="1000" label="Score"/>
+      </div>
+    </div>
+  </div>
+
+  <div class="selected-tables-container">
+    <TCMSelectTable
+        :tcm-data="selectData.tcms"
+        v-show="selectData.tcms.length > 0"
+        v-on:listenDeleteData="deleteTcmSelectedData"
+        class="selected-table-container"
+      />
+    <FormulaSelectTable
+        :formula-data="selectData.formulas"
+        v-show="selectData.formulas.length > 0"
+        v-on:listenDeleteData="deleteFormulaSelectedData"
+        class="selected-table-container"
+    />
+    <ProteinSelectTable
+        :protein-data="selectData.proteins"
+        v-show="selectData.proteins.length > 0"
+        v-on:listenDeleteData="deleteProteinSelectedData"
+        class="selected-table-container"
+    />
+  </div>
 </template>
 
 <script>
@@ -338,8 +358,45 @@ export default {
 </script>
 
 <style>
-.selected-table-container {
+h1 {
+  text-align: center;
+}
+
+.function_choose_container {
   display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.score_chooser_container {
+  margin-left: 15px;
+  margin-right: 5px;
+}
+
+.selected-tables-container {
+  display: flex;
+}
+
+.selected-table-container {
+  padding-left: 20px;
+}
+
+.extend-enter-from {
+  max-height: 0;
+}
+.extend-enter-active {
+  transition: height 0.5s linear;
+}
+.extend-enter-to {
+  max-height: 300px;
+}
+
+.extend-leave-active {
+  transition: height 0.5s linear;
+}
+.extend-leave-to {
+  max-height: 0;
 }
 </style>
 

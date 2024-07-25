@@ -18,11 +18,12 @@ const handleSelectMinus = (rowNo, rowData) => {
   <div>
     <h2>Formula</h2>
     <el-table
+        stripe border fit
         :data="formulaData"
         style="width: 100%"
         height="300"
     >
-      <el-table-column fixed width="60">
+      <el-table-column fixed width="65">
         <template #default="scope">
           <el-button
               size="small"

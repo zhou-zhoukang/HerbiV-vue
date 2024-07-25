@@ -60,7 +60,7 @@ const statisticCount = reactive({
 <template>
   <div class="help-container">
     <el-card class="introduction-card">
-      <h2>HerbiV Manuel</h2>
+      <h1>HerbiV Manuel</h1>
       <p>HerbiV是一个具有多种功能的中药网络药理学分析工具，可进行经典的网络药理学及反向网络药理学分析。</p>
       <p>TODO</p>
     </el-card>

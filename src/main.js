@@ -2,9 +2,11 @@ import { createApp } from 'vue'
 import App from './App.vue'
 // 全局引用
 import ElementPlus from 'element-plus'
-    // 引用所有样式
+// 引用所有样式
 import 'element-plus/dist/index.css'
 import 'element-plus/theme-chalk/dark/css-vars.css'
+import "@/assets/fonts/font.css";
+import "@/assets/css/common.css"
 import router from '@/router/index.js'
 import axios from "axios";
 axios.defaults.baseURL=`${process.env.VUE_APP_API_URL}`;

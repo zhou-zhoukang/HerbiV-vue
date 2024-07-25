@@ -18,11 +18,12 @@ const handleSelectMinus = (rowNo, rowData) => {
   <div>
     <h2>Tcm</h2>
     <el-table
-      :data="tcmData"
-      style="width: 100%"
-      height="300"
+        stripe border fit
+        :data="tcmData"
+        style="width: 100%;"
+        height="300"
     >
-      <el-table-column fixed width="60">
+      <el-table-column fixed width="65">
         <template #default="scope">
           <el-button
             size="small"
