@@ -60,7 +60,7 @@ const handleClick = (tab, event) => {
 
 <template>
   <div class="download-container">
-    <h1>Download Files</h1>
+    <h1>数据集下载</h1>
     <el-table :data="downloadData" stripe style="width: 100%">
       <el-table-column prop="data" label="Data">
         <template #default="scope">
@@ -90,7 +90,7 @@ const handleClick = (tab, event) => {
     </el-table>
 
     <ElDivider/>
-    <h1>File formats</h1>
+    <h1>数据集格式</h1>
     <el-tabs
         v-model="activeFormat"
         class="demo-tabs"
@@ -106,7 +106,13 @@ const handleClick = (tab, event) => {
         <p>name: xxx</p>
       </el-tab-pane>
       <el-tab-pane label="Chemical" name="Chemical"></el-tab-pane>
-      <el-tab-pane label="Protein" name="Protein"></el-tab-pane>
+      <el-tab-pane label="Protein" name="Protein">
+        <p>1. <strong>Ensembl_ID</strong>: 蛋白的ID; 9606代表人的蛋白 10116代表鼠（rat）的蛋白 10090代表小鼠（mouses）的蛋白 7955代表斑马鱼的蛋白</p>
+        <p>2. <strong>preferred_name</strong>: 常用名</p>
+        <p>3. <strong>protein_size</strong>: 蛋白大小</p>
+        <p>4. <strong>annotation</strong>: 描述</p>
+        <p>5. <strong>alias&source</strong>: 别名和来源.每种蛋白有多个别名，每个别名都有其相对应的来源</p>
+      </el-tab-pane>
       <el-tab-pane label="Chemical Protein Links" name="Chemical_Protein_Links"></el-tab-pane>
       <el-tab-pane label="Formula Tcm Links" name="Formula_Tcm_Links"></el-tab-pane>
       <el-tab-pane label="Tcm Chemical Links" name="Tcm_Chemical_Links"></el-tab-pane>

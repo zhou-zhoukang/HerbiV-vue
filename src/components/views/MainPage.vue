@@ -4,6 +4,7 @@
       <el-header class="header">
         <Header></Header>
       </el-header>
+
       <el-main>
         <RouterView v-slot="{ Component }">
           <KeepAlive>
@@ -12,9 +13,11 @@
           <component :is="Component" v-if="!$route.meta.keepAlive"/>
         </RouterView>
       </el-main>
+
       <el-footer>
         <Footer></Footer>
       </el-footer>
+
     </el-container>
   </div>
 </template>
